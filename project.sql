@@ -1,4 +1,4 @@
--- 1. »∏ªÁ∆Ú∞° ======================================================================================
+-- 1. ÌöåÏÇ¨ÌèâÍ∞Ä ======================================================================================
 CREATE SEQUENCE seq_CompanyVal;
 
 CREATE  TABLE CompanyVal_TB(
@@ -16,7 +16,7 @@ CONSTRAINT CompanyVal_userid foreign key(userid) references Member_TB(userid)
 
 select * from CompanyVal_TB; 
 
--- 2. ∏È¡¢¡˙πÆ∞¯¿Ø ======================================================================================
+-- 2. Î©¥Ï†ëÏßàÎ¨∏Í≥µÏú† ======================================================================================
 
 CREATE SEQUENCE seq_InterViewAns;
 
@@ -35,7 +35,7 @@ CONSTRAINT InterviewAns_userid foreign key(userid) references Member_TB(userid)
  
  select * from InterViewAns_TB;
  
--- 3. «’∞›»ƒ±‚ ======================================================================================
+-- 3. Ìï©Í≤©ÌõÑÍ∏∞ ======================================================================================
 CREATE SEQUENCE seq_Passlatter;
   
 CREATE  TABLE Passlatter_TB(
@@ -53,7 +53,7 @@ CONSTRAINT Passlatter_userid foreign key(userid) references Member_TB(userid)
 
  select * from Passlatter_TB;
  
--- 4. ∞ÌπŒQ&A ======================================================================================
+-- 4. Í≥†ÎØºQ&A ======================================================================================
  
 CREATE SEQUENCE seq_WorryQnA;
   
@@ -66,13 +66,14 @@ regdate DATE DEFAULT sysdate,
 updatedate DATE DEFAULT sysdate,
 views NUMBER(10,0) DEFAULT 0,
 likes NUMBER(10,0) DEFAULT 0,
+category VARCHAR2(50) not null,
 CONSTRAINT WorryQnA_bno PRIMARY KEY (bno),
 CONSTRAINT WorryQnA_userid foreign key(userid) references Member_TB(userid)
 );
 
  select * from WorryQnA_TB;
  
--- 5. «’∞›¿⁄º“º≠∞¯¿Ø======================================================================================
+-- 5. Ìï©Í≤©ÏûêÏÜåÏÑúÍ≥µÏú†======================================================================================
 CREATE SEQUENCE seq_PassSelfIntroduct;
   
 CREATE  TABLE PassSelfIntroduct_TB(
@@ -90,7 +91,7 @@ CONSTRAINT PassSelfIntroduct_userid foreign key(userid) references Member_TB(use
 
  select * from PassSelfIntroduct_TB;
 
--- 6. πÆ¿«∞‘Ω√∆«======================================================================================
+-- 6. Î¨∏ÏùòÍ≤åÏãúÌåê======================================================================================
 
 CREATE SEQUENCE seq_Ask;
   
@@ -101,15 +102,14 @@ content VARCHAR2(2000) not null,
 userid VARCHAR2(50) not null,
 regdate DATE DEFAULT sysdate,
 updatedate DATE DEFAULT sysdate,
-views NUMBER(10,0) DEFAULT 0,
-likes NUMBER(10,0) DEFAULT 0,
+category VARCHAR2(50) not null,
 CONSTRAINT Ask_bno PRIMARY KEY (bno),
 CONSTRAINT Ask_userid foreign key(userid) references Member_TB(userid)
 );
 
  select * from Ask_TB;
 
- -- 7. »∏ø¯ ======================================================================================
+ -- 7. ÌöåÏõê ======================================================================================
  CREATE  TABLE Member_TB(
  username VARCHAR2(50) not null,
  password VARCHAR2(50) not null,
