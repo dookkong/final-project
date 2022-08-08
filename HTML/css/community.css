@@ -1,0 +1,26 @@
+
+
+#re{
+  margin-top: 20px;
+  border: 3px solid rgb(0, 0, 0); 
+  width: 1520px;
+  height: 200px;
+ }
+
+ #title{
+  margin-top: 50px;
+  margin-bottom: 80px;
+  margin-left: 40px;
+}
+
+  #sec3{
+   background-color: darkorange;
+  }
+
+  #list{
+    margin-left: 380px;
+  }
+
+  #reg-btn{
+     float: right;
+  }
