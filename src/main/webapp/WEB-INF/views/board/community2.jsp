@@ -17,20 +17,17 @@
     <h2><b>면접 질문 게시판</b></h2>
   </div>
 
-<section class="container" style="height: 500px;" id="sec3">
-<div  style="text-align: center;" id="list">
-  <div class="row">
-    <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">            
-              <button id="regBtn" type="button" class="btn btn-xs pull-right" style="border-radius: 5px;">
-                  게시글 등록
-              </button>
-            </div>
-           
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                <table width="100%" class="table table-striped table-bordered table-hover">
+<section class="container" style="height: 850px;">
+	<div  style="text-align: center; position: relative; right: 230px;" id="list">
+    	<button type="button" class="btn btn-xs pull-right" 
+              	style="border-radius: 5px; background: #22dd9b; float: left; font-size: 13px; width: 90px;">
+        	<img alt="pencle" src="/resources/image/pencle.png" width="18px">
+        	글쓰기
+        </button>
+        <br>
+        <br>
+            <div class="panel-body">  	
+                <table class="table table-striped table-bordered table-hover" style="width: 1000px;">
                     <thead>
                         <tr>
                             <th>번호</th>
@@ -44,7 +41,7 @@
                       <c:forEach items="${list}" var="board">
                         <tr class="odd gradeX">
                             <td><c:out value="${board.bno}"/></td>
-                            <td><a class="move">
+                            <td><a class="move" style="text-decoration: none; color: black;">
                             <c:out value="${board.title}"/>
                             </a></td>
                             <td><c:out value="${board.writer}"/></td>
