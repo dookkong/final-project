@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.keduit.mapper.BoardMapper">
+  
+  <select id="getlist" resultType="com.keduit.domain.BoardVO">
+  	<!-- <![CDATA[
+  	 where bno > 0 
+  	]]> -->
+  	select * from t_board order by bno desc
+  </select>
+  
+  <insert id="insert">
+  	insert into team_board(bno, title, content, writer) 
+	values(seq_team_board.nextval, #{title}, #{content}, #{writer})
+  </insert>
+  
+  <select id="read" resultType="com.keduit.domain.BoardVO">
+  	select * from t_board where bno = #{bno}
+  </select>
+  
+  <delete id="delete">
+  	delete from team_board where bno = #{bno}
+  </delete>
+  
+  <update id="update">
+  	update team_board
+  	set title = #{title}, content = #{content}, writer = #{writer}, updatedate = sysdate
+  	where bno = #{bno}
+  </update>
+  
+  </mapper>
