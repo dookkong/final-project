@@ -19,7 +19,7 @@
 
 <section class="container" style="height: 850px;">
 	<div  style="text-align: center; position: relative; right: 230px;" id="list">
-    	<button type="button" class="btn btn-xs pull-right" 
+    	<button type="button" class="btn btn-xs pull-right" onclick="location.href = './reg.html'"
               	style="border-radius: 5px; background: #22dd9b; float: left; font-size: 13px; width: 90px;">
         	<img alt="pencle" src="/resources/image/pencle.png" width="18px">
         	글쓰기
@@ -41,10 +41,10 @@
                       <c:forEach items="${list}" var="board">
                         <tr class="odd gradeX">
                             <td><c:out value="${board.bno}"/></td>
-                            <td><a class="move" style="text-decoration: none; color: black;">
-                            <c:out value="${board.title}"/>
+                            <td><a class="move" style="text-decoration: none; color: black;" href="#">
+                            	<c:out value="${board.title}"/>
                             </a></td>
-                            <td><c:out value="${board.writer}"/></td>
+                            <td><c:out value="${board.userid}"/></td>
                             <td><fmt:formatDate pattern="yyyy-MM-dd"
                              value="${board.regdate}"/></td>
                             <td><fmt:formatDate pattern="yyyy-MM-dd" 
