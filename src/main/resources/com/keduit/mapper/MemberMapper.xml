@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.keduit.mapper.MemberMapper">
+  
+  <select id="management" resultType="com.keduit.domain.MemberVO">
+  	select bno, username, userid from Member_TB order by bno asc
+  </select>
+  
+  <select id="memberdetail" resultType="com.keduit.domain.MemberVO">
+  	select * from Member_TB order by bno asc
+  </select>
+  </mapper>
