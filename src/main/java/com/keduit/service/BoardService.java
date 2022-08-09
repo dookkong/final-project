@@ -19,4 +19,8 @@ public interface BoardService {
 	
 	//list 불러오기
 	public List<BoardVO> getlist();
+	
+	public List<MemberVO> management();
+
+	public List<MemberVO> memberdetail();
 }
