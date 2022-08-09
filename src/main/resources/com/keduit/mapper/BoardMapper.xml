@@ -9,7 +9,7 @@
   	<!-- <![CDATA[
   	 where bno > 0 
   	]]> -->
-  	select * from t_board order by bno desc
+  	select * from  CompanyVal_TB order by bno desc
   </select>
   
   <insert id="insert">
