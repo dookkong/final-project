@@ -73,6 +73,23 @@ public class BoardController {
 		log.info("sign...............");
 	}
 	
+	@GetMapping("/management")
+	public void management(Model model) {
+		log.info("management...........");
+		model.addAttribute("management",service.management());
+	}
+	
+	@GetMapping("/member-detail")
+	public void memberdetail(Model model) {
+		log.info("member-detail...........");
+		model.addAttribute("memberdetail",service.memberdetail());
+	}
+	
+	
+	
+	
+	
+	
 	//리스트 불러오기
 	@GetMapping("/list")
 	public void list(Model model) {
