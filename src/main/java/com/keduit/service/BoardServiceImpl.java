@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.keduit.domain.BoardVO;
+import com.keduit.domain.MemberVO;
 import com.keduit.mapper.BoardMapper;
+import com.keduit.mapper.MemberMapper;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -17,6 +19,9 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Setter(onMethod_ = @Autowired)
 	private BoardMapper mapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private MemberMapper member;
 
 	@Override
 	//새 글 작성
@@ -53,5 +58,17 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardVO> getlist() {
 		
 		return mapper.getlist();
+	}
+
+	@Override
+	public List<MemberVO> management() {
+		
+		return member.management();
+	}
+	
+	@Override
+	public List<MemberVO> memberdetail() {
+		
+		return member.memberdetail();
 	}
 }
