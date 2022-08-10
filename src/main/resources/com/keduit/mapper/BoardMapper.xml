@@ -12,6 +12,43 @@
   	select * from  CompanyVal_TB order by bno desc
   </select>
   
+  <sql id="criteria">
+     <trim prefix="(" suffix=") AND " prefixOverrides="OR">
+       <foreach item='type' collection='typeArr'>
+         <trim prefix="OR">
+           <choose>
+              <when test="type == 'T'.toString()">
+                 title like '%'||#{keyword}||'%'
+              </when>
+              <when test="type == 'C'.toString()">
+                 content like '%'||#{keyword}||'%'
+              </when>
+              <when test="type == 'W'.toString()">
+                 userid like '%'||#{keyword}||'%'
+              </when>
+            </choose>
+         </trim>
+       </foreach>
+     </trim>
+   </sql>
+  
+  <select id="getListWithPaging" resultType="com.keduit.domain.BoardVO">
+     
+     select bno, title, content, userid, regdate, updatedate, views, likes
+         from (
+             select /*+INDEX_DESC(CompanyVal_TB SYS_C007109) */ 
+               rownum rn, bno, title, content, userid, regdate, updatedate, views, likes
+               from CompanyVal_TB
+               where 
+                <include refid="criteria"></include>         
+               
+     <![CDATA[            
+               rownum <= #{pageNum} * #{amount}
+         ) where rn > (#{pageNum} - 1) * #{amount}
+      ]]>         
+   
+   </select>
+  
   <insert id="insert">
   	insert into team_board(bno, title, content, writer) 
 	values(seq_team_board.nextval, #{title}, #{content}, #{writer})
@@ -30,5 +67,15 @@
   	set title = #{title}, content = #{content}, writer = #{writer}, updatedate = sysdate
   	where bno = #{bno}
   </update>
-  
+
+   <select id="getTotalCount" resultType="int">
+      select count(*) from CompanyVal_TB
+      where    
+      <include refid="criteria"></include>
+      
+    <![CDATA[
+      bno > 0
+    ]]>
+    </select>
+
   </mapper>
