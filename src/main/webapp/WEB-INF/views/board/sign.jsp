@@ -22,7 +22,7 @@
         <p><b>아이디</b></p>
         <p><b>비밀번호</b></p>
         <p><b>비밀번호 확인</b></p>
-        <p><b>이메일</b></p>
+        <p><b>전화번호</b></p>
     </div>
     <div class="input">
         <input type="text" name="name" placeholder="이름을 입력해주세요">
