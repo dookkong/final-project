@@ -3,6 +3,8 @@ package com.keduit.service;
 import java.util.List;
 
 import com.keduit.domain.BoardVO;
+import com.keduit.domain.Criteria;
+import com.keduit.domain.MemberVO;
 
 public interface BoardService {
 	//새 글 작성
@@ -11,16 +13,23 @@ public interface BoardService {
 	//1건 조회 (상세보기)
 	public BoardVO get(Long bno);
 	
+	//페이지 관련
+	public List<BoardVO> getList(Criteria cri);
+	
 	//1건 수정하기
 	public int modify(BoardVO vo);
 	
 	//1건 삭제하기
 	public int remove(Long bno);
 	
-	//list 불러오기
-	public List<BoardVO> getlist();
+	public int getTotalCount(Criteria cri);
 	
+	//list 불러오기
+
 	public List<MemberVO> management();
 
 	public List<MemberVO> memberdetail();
+
+	public List<BoardVO> getList();
+
 }

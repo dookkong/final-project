@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.keduit.domain.BoardVO;
+import com.keduit.domain.Criteria;
 import com.keduit.domain.MemberVO;
 import com.keduit.mapper.BoardMapper;
 import com.keduit.mapper.MemberMapper;
@@ -55,7 +56,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	//list 불러오기
-	public List<BoardVO> getlist() {
+	public List<BoardVO> getList() {
 		
 		return mapper.getlist();
 	}
@@ -71,4 +72,18 @@ public class BoardServiceImpl implements BoardService {
 		
 		return member.memberdetail();
 	}
+	
+	@Override
+	public int getTotalCount(Criteria cri) {
+		log.info("getTotalCount..................");
+		return mapper.getTotalCount(cri);
+	}
+
+	@Override
+	public List<BoardVO> getList(Criteria cri) {
+		log.info("getList with criteria ==>" + cri);
+		
+		return mapper.getListWithPaging(cri);
+	}
+
 }
