@@ -136,5 +136,131 @@ drop TABLE Member_TB;
 
 commit;
 
-
+ -- 8. È¸»çÆò°¡ ´ñ±ÛDB ======================================================================================
+CREATE SEQUENCE seq_CompanyVal_reply;
+ 
+CREATE TABLE CompanyVal_reply_TB(
+ rno NUMBER(10,0),
+ bno NUMBER(10,0),
+ reply VARCHAR2(1000) not null,
+ userid VARCHAR2(50) not null,
+ regdate DATE DEFAULT sysdate,
+ updatedate DATE DEFAULT sysdate,
+ CONSTRAINT CompanyVal_reply_rno PRIMARY KEY (rno),
+ CONSTRAINT CompanyVal_reply_bno foreign key(bno) references CompanyVal_TB(bno),
+ CONSTRAINT CompanyVal_reply_userid foreign key(userid) references Member_TB(userid)
+ ); 
+ 
+ select * from CompanyVal_reply_TB; 
+ 
+ -- 9. ¸éÁ¢Áú¹®°øÀ¯´ñ±ÛDB ======================================================================================
+ CREATE SEQUENCE seq_InterviewAns_reply;
+ 
+CREATE TABLE InterviewAns_reply_TB(
+ rno NUMBER(10,0),
+ bno NUMBER(10,0),
+ reply VARCHAR2(1000) not null,
+ userid VARCHAR2(50) not null,
+ regdate DATE DEFAULT sysdate,
+ updatedate DATE DEFAULT sysdate,
+ CONSTRAINT InterviewAns_reply_rno PRIMARY KEY (rno),
+ CONSTRAINT InterviewAns_reply_bno foreign key(bno) references InterviewAns_TB(bno),
+ CONSTRAINT InterviewAns_reply_userid foreign key(userid) references Member_TB(userid)
+ ); 
+ 
+ select * from InterviewAns_reply_TB; 
+ 
+ -- 10. ÇÕ°ÝÈÄ±â ´ñ±ÛDB ======================================================================================
+CREATE SEQUENCE seq_Passlatter_reply;
+ 
+CREATE TABLE Passlatter_reply_TB(
+ rno NUMBER(10,0),
+ bno NUMBER(10,0),
+ reply VARCHAR2(1000) not null,
+ userid VARCHAR2(50) not null,
+ regdate DATE DEFAULT sysdate,
+ updatedate DA;TE DEFAULT sysdate,
+ CONSTRAINT Passlatter_reply_rno PRIMARY KEY (rno),
+ CONSTRAINT Passlatter_reply_bno foreign key(bno) references Passlatter_TB(bno),
+ CONSTRAINT Passlatter_reply_userid foreign key(userid) references Member_TB(userid)
+ ); 
+ 
+ select * from Passlatter_reply_TB; 
+ -- 11. °í¹ÎQ&A ´ñ±ÛDB ======================================================================================
+ CREATE SEQUENCE seq_WorryQnA_reply;
+ 
+CREATE TABLE WorryQnA_reply_TB(
+ rno NUMBER(10,0),
+ bno NUMBER(10,0),
+ reply VARCHAR2(1000) not null,
+ userid VARCHAR2(50) not null,
+ regdate DATE DEFAULT sysdate,
+ updatedate DATE DEFAULT sysdate,
+ CONSTRAINT WorryQnA_reply_rno PRIMARY KEY (rno),
+ CONSTRAINT WorryQnA_reply_bno foreign key(bno) references WorryQnA_TB(bno),
+ CONSTRAINT WorryQnA_reply_userid foreign key(userid) references Member_TB(userid)
+ ); 
+ 
+ select * from Passlatter_reply_TB; 
+ 
+ -- 12. ÇÕ°ÝÀÚ¼Ò¼­°øÀ¯´ñ±ÛDB ======================================================================================
+CREATE SEQUENCE seq_PassSelfIntroduct_reply;
+ 
+CREATE TABLE PassSelfIntroduct_reply_TB(
+ rno NUMBER(10,0),
+ bno NUMBER(10,0),
+ reply VARCHAR2(1000) not null,
+ userid VARCHAR2(50) not null,
+ regdate DATE DEFAULT sysdate,
+ updatedate DATE DEFAULT sysdate,
+ CONSTRAINT PassSelfIntroduct_reply_rno PRIMARY KEY (rno),
+ CONSTRAINT PassSelfIntroduct_reply_bno foreign key(bno) references PassSelfIntroduct_TB(bno),
+ CONSTRAINT PassSelfIntroduct_reply_userid foreign key(userid) references Member_TB(userid)
+ ); 
+ 
+ select * from Passlatter_reply_TB;
+ 
+ -- 13. ¹®ÀÇ°Ô½ÃÆÇ´ñ±ÛDB ======================================================================================
+ 
+CREATE SEQUENCE seq_Ask_reply;
+ 
+CREATE TABLE Ask_reply_TB(
+ rno NUMBER(10,0),
+ bno NUMBER(10,0),
+ reply VARCHAR2(1000) not null,
+ userid VARCHAR2(50) not null,
+ regdate DATE DEFAULT sysdate,
+ updatedate DATE DEFAULT sysdate,
+ CONSTRAINT Ask_reply_rno PRIMARY KEY (rno),
+ CONSTRAINT Ask_reply_bno foreign key(bno) references Ask_TB(bno),
+ CONSTRAINT Ask_reply_userid foreign key(userid) references Member_TB(userid)
+ ); 
+ 
+ select * from Passlatter_reply_TB;
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
