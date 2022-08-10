@@ -33,7 +33,7 @@
           <img src="/resources/image/icon1.png" style="width: 15px;">
           <a href="#" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 13px;">비밀번호 찾기</a>
           <img src="/resources/image/sign.png" style="width: 15px;">
-          <a href="#" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 13px;">회원가입</a>
+          <a href="./sign.html" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 13px;">회원가입</a>
         </div>
         <div id="loginbox">
           <button type="submit" value="로그인" name="login" id="login">로그인</button>

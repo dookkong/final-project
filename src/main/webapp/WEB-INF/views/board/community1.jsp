@@ -34,21 +34,22 @@
                             <th>제목</th>
                             <th>작성자</th>
                             <th>작성일</th>
-                            <th>수정일</th>
+                            <th>조회수</th>
+                            <th>좋아요</th>
                         </tr>
                     </thead>        
                     <tbody>
                       <c:forEach items="${list}" var="board">
                         <tr class="odd gradeX">
-                            <td><c:out value="${board.bno}"/></td>
-                            <td><a class="move" style="text-decoration: none; color: black;" href="#">
+                            <td style="width: 80px;"><c:out value="${board.bno}"/></td>
+                            <td><a class="move" style="text-decoration: none; color: black;" href='<c:out value="${board.bno }"/>'>
                             	<c:out value="${board.title}"/>
                             </a></td>
                             <td><c:out value="${board.userid}"/></td>
                             <td><fmt:formatDate pattern="yyyy-MM-dd"
                              value="${board.regdate}"/></td>
-                            <td><fmt:formatDate pattern="yyyy-MM-dd" 
-                             value="${board.updatedate}"/></td>
+                            <td style="width: 80px;"><c:out value="${board.views}"/></td>
+                            <td style="width: 80px;"><c:out value="${board.likes}"/></td>
                         </tr>
                        </c:forEach>
                     </tbody>
@@ -56,7 +57,7 @@
                 <!-- /.table-responsive -->
                <div class='row'>
                   <div class="col-lg-12">
-                  <form id='searchForm' action="/board/list" method="get">
+                  <form id='searchForm' action="/board/community1" method="get">
                     <select name='type'>
                       <option value="${pageMaker.cri.type == null?'selected':'' }">--</option>
                       <option value="T"
@@ -89,7 +90,7 @@
                
                <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
                 <li class="paginate_button ${pageMaker.cri.pageNum == num ? 'active':'' }">
-                <a href="${num }">${num }</a></li>
+                <a href="community1">${num }</a></li>
                </c:forEach>
                 
                <c:if test="${pageMaker.next }">
@@ -98,10 +99,10 @@
               </ul>
             </div>
               </div>
-            <form id="actionForm" action="/board/list" method='get'>
+            <form id="actionForm" action="/board/community1" method='get'>
                <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
                <input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-               <input type="hidden" name="type" >
+               <input type="hidden" name="type">
             </form>
 </div>
 </section>
