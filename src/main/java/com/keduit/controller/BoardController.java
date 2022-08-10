@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keduit.domain.BoardVO;
+import com.keduit.domain.Criteria;
+import com.keduit.domain.PageDTO;
 import com.keduit.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -28,9 +30,13 @@ public class BoardController {
 	}
 	
 	@GetMapping("/community1")
-	public void community1(Model model) {
+	public void community1(Criteria cri, Model model) {
 		log.info("community1...............");
-		model.addAttribute("list",service.getlist());
+		model.addAttribute("list",service.getList(cri));
+		 int total = service.getTotalCount(cri);
+	      log.info("total : " + total);
+	      
+	      model.addAttribute("pageMaker",new PageDTO(cri, total));
 	}
 	
 	@GetMapping("/community2")
@@ -95,7 +101,7 @@ public class BoardController {
 	public void list(Model model) {
 		log.info("list.............");
 		
-		model.addAttribute("list",service.getlist());
+		model.addAttribute("list",service.getList(null));
 	}
 	
 	//1건 조회하기
