@@ -15,10 +15,10 @@
 </nav>
 
 <body  class="container">
-	<form id="register-form" action="/board/reg" method="post">
+	<form id="register-form" action="/board/reg3" method="post">
   		<br>
   		<br>
-  		<h1>합격 자소서 게시판</h1>
+  		<h1>회사 평가 게시판</h1>
   		<hr>
   		<br>
   		<div class="btn-reg">

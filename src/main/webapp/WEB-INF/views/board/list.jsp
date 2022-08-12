@@ -35,18 +35,18 @@
                     <!-- model에 addAttribute 한 변수 이름 list -->
                     <!-- c:forEach 구문의 var 이름을 Board로 줬기 때문에 -->
                     <tbody>
-                      <c:forEach items="${list }" var="Board">
+                      <c:forEach items="${list }" var="board">
                         <tr class="odd gradeX">
-                            <td><c:out value="${Board.bno }"/></td>
-                            <td><a class="move" href='/board/get?bno=<c:out value="${Board.bno }"/>'>
-                                <c:out value="${Board.title }"/>
+                            <td><c:out value="${board.bno }"/></td>
+                            <td><a class="move" href='/board/reg-detail?bno=<c:out value="${board.bno }"/>'>
+                                <c:out value="${board.title }"/>
                                 </a>
                             </td>
-                            <td><c:out value="${Board.writer }"/></td>
+                            <td><c:out value="${board.writer }"/></td>
                             <td class="center"><fmt:formatDate pattern="yyyy.MM.dd" 
-                            value="${Board.regdate }"/></td>
+                            value="${board.regdate }"/></td>
                             <td class="center"><fmt:formatDate pattern="yyyy.MM.dd"
-                            value="${Board.updatedate }"/></td>
+                            value="${board.updatedate }"/></td>
                         </tr>
                       </c:forEach>
                     </tbody>
@@ -124,7 +124,7 @@
                                 <h4 class="modal-title" id="myModalLabel">게시판</h4>
                             </div>
                             <div class="modal-body">
-                                처리가 완료 되었습니다.
+                                완료 되었습니다.
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -152,8 +152,24 @@
 
 $(document).ready(function () {
 	$("#regBtn").on("click", function () {
-		self.location = "/board/register";
+		self.location = "/board/reg";
 	});
+	var result = '<c:out value="${result}"/>';
+	
+	checkModal(result){
+		if(result == ''){
+			return;
+		}
+		
+		if(result === 'success'){
+			$(".modal-body").html("처리가 완료 되었습니다.");
+		}else if(result > 0){
+			$(".modal-body").html(
+					"등록이 완료 되었습니다.");
+		} 
+		
+		$("#myModal").modal("show");
+	}
 });
 </script>
             
