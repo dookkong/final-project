@@ -16,15 +16,22 @@
   <br>
   <br>
   <hr>
-<form action="/board/reg" method="post">
+<form action="/board/reg2" method="post">
   <div>
-  	<select style="border-radius: 5px; background: aqua;" name="select1">
+  	<select style="border-radius: 5px; background: aqua;" name="select">
   		<option value="1">회사평가 게시판</option>
   		<option value="2">면접질문 게시판</option>
   		<option value="3">고민Q&A 게시판</option>
   		<option value="4">합격자소서 게시판</option>
   	</select>
-  </div>
+  	
+  	  	<select style="border-radius: 5px; background: aqua;" name="select2">
+  		<option value="0">말머리</option>
+  		<option value="1">흔한고민</option>
+  		<option value="2">취업관련</option>
+  		<option value="3">스택관련</option>
+  	</select>
+  	  </div>
   <br>
   <div class="btn-reg">
   <button type="submit" style="border-radius: 5px; background: aqua; border: 1px solid black;">등록</button>

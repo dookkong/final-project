@@ -28,8 +28,9 @@
       <li><a href="./index.html">홈</a></li>
       <li><a href="./community1.html">회사평가</a></li>
       <li><a href="./community2.html">면접질문</a></li>
-      <li><a href="./community3.html">고민Q&A</a></li>
-      <li><a href="./community4.html">합격자소서</a></li>
+      <li><a href="./community3.html">합격후기</a></li>
+      <li><a href="./community4.html">고민Q&A</a></li>
+      <li><a href="./community5.html">합격자소서</a></li>
     </ul>
 
       <div class="container" id="log">

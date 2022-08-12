@@ -14,7 +14,7 @@
   </nav>
 
   <div style="text-align: center;" id="title">
-    <h2><b>합격후기 게시판</b></h2>
+    <h2><b>합격자소서공유 게시판</b></h2>
   </div>
 
 <section class="container" style="height: 950px;">
@@ -39,10 +39,10 @@
                         </tr>
                     </thead>        
                     <tbody>
-                      <c:forEach items="${Passlatter}" var="board">
+                      <c:forEach items="${PassSelfIntroduct}" var="board">
                         <tr class="odd gradeX">
                             <td style="width: 80px;"><c:out value="${board.bno}"/></td>
-                            <td><a class="move" style="text-decoration: none; color: black;" href='/board/reg-detail3?bno=<c:out value="${board.bno }"/>'>
+                            <td><a class="move" style="text-decoration: none; color: black;" href='/board/reg-detail5?bno=<c:out value="${board.bno }"/>'>
                             	<c:out value="${board.title}"/>
                             </a></td>
                             <td><c:out value="${board.userid}"/></td>
@@ -57,7 +57,7 @@
                 <!-- /.table-responsive -->
                <div class='row'>
                   <div class="col-lg-12">
-                  <form id='searchForm' action="/board/community3" method="get">
+                  <form id='searchForm' action="/board/community4" method="get">
                     <select name='type'>
                       <option value="${pageMaker.cri.type == null?'selected':'' }">--</option>
                       <option value="T"
@@ -82,10 +82,10 @@
                </div>
                
                <div>
-             <ul class="pagination"
-              style="list-style-type: none; position: relative; left: 350px; 
-              display: flex; flex-direction: row; justify-content: space-around;
-              width: 320px; color: black;">
+              <ul class="pagination"
+               style="list-style-type: none; position: relative; left: 350px; 
+               display: flex; flex-direction: row; justify-content: space-around;
+               width: 320px; color: black;">
                  
                  	<%-- prev가 true일 때 보이게 하기 --%>
                  	<c:if test="${pageMaker.prev}">
@@ -115,62 +115,53 @@
 <%@include file="../includes/footer.jsp" %>
 
 <script type="text/javascript">
-               $(document).ready(function () {
-				  var result = '<c:out value="${result}"/>';
-				  
-				  checkModal(result);
-				  history.replaceState({},null,null);
-				  
-				  function checkModal(result) {
-					if(result === '' || history.state){
-						return;
-					}
-					
-					if(parseInt(result) > 0){
-						$(".modal-body").html("게시글 "+parseInt(result)+" 번이 등록 되었습니다.");
-					}
-					$("#myModal").modal("show");
-				}
-				  
-				  $("#regBtn").on("click", function () {
-					self.location = "/board/reg-detail";
-				});
-				  
-				  var actionForm = $("#actionForm");
-				  
-				  $(".paginate_button a").on("click", function (e) {
-					e.preventDefault();
-					console.log('click....');
-					actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-					actionForm.submit();
-				});
-				  
-				  $(".move").on("click", function (e) {
-					e.preventDefault(); //기본동작을 제거
-					actionForm.append("<input type='hidden' name='bno' value='"+
-							$(this).attr("href")+"'>");
-							//move
-					actionForm.attr("action","/board/get");
-					actionForm.submit();
-				});
-				  
-				  var searchForm = $("#searchForm");
-				  $("#searchForm button").on("click", function (e) {
-					if(!searchForm.find("option:selected").val()){
-						alert("검색 종류를 선택하세요.");
-						
-						return false;
-					}
-					
-					if(!searchForm.find("input[name='keyword']").val()){
-						alert("키워드를 입력 하세요.");
-						
-						return false;
-					}
-					
-					searchForm.find("input[name='pageNum']").val("1");
-					e.perventDefault();
-					searchForm.submit();
-				});
-			});
-            </script>
+
+$(document).ready(function () {
+	var result = '<c:out value="${result}"/>';
+	  
+	  checkModal(result);
+	  history.replaceState({},null,null);
+	  
+	  function checkModal(result) {
+		if(result === ''|| history.state){
+			return;
+		}
+		
+		if(parseInt(result) > 0){
+			$(".modal-body").html("게시글이 등록 되었습니다.");
+		}
+		$("#myModal").modal("show");
+	}
+	
+	$("#regBtn").on("click", function () {
+		self.location = "/board/reg3";
+	});
+	
+	var actionForm = $("#actionForm");
+	
+	$(".paginate_button a").on("click", function (e) {
+		e.preventDefault();
+		//this == .paginate_button a
+		var targetPage = $(this).attr("href");
+		
+		console.log(targetPage);
+		
+		//actionForm 안에서 찾는다 input name='pageNum' 인 것을 찾아서 value를 targetPage로 변경 
+		actionForm.find("input[name='pageNum']").val(targetPage);
+		actionForm.submit();
+	});
+	
+	$(".move").on("click", function (e) {
+		e.preventDefault();
+		
+		//.move href가 가지고 있는 bno값을 targetBno에 넣는다.
+		var targetBno = $(this).attr("href");
+		
+		console.log(targetBno);
+		
+		actionForm.append("<input type='hidden' name='bno' value='"+targetBno+"'>");
+		actionForm.attr("action", "/board/reg-detail3");
+		actionForm.submit();
+	});
+});
+</script>

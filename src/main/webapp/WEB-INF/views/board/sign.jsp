@@ -44,8 +44,9 @@
 
     <div class="sub">
       <input type="submit" name="submit" value="회원가입">
-      <input type="reset" name="submit" value="다시입력">
+      <input type="reset" name="reset" value="다시입력">
     </div>
+   
   </section>
 
   
