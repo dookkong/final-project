@@ -20,18 +20,18 @@ public class ReplyServiceImpl implements ReplyService{
 	@Setter(onMethod_ = @Autowired)	
 	private ReplyMapper mapper;
 	
+	
 	@Override
 	public int register(ReplyVO vo) {
 		log.info("댓글 등록 작업------>" + vo);
 		return mapper.insert(vo);
 	}
-
+	
 	@Override
 	public ReplyVO get(Long rno) {
-		log.info("댓글 상세 조회------>" + rno);
 		return mapper.read(rno);
 	}
-
+	
 	@Override
 	public int modify(ReplyVO vo) {
 		log.info("댓글 수정 하기------>" + vo);
@@ -56,5 +56,6 @@ public class ReplyServiceImpl implements ReplyService{
 		return new ReplyPageDTO(mapper.getCountByBno(bno),
 								mapper.getListWithPaging(cri, bno));
 	}
+
 
 }

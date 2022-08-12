@@ -11,10 +11,18 @@ public interface BoardService {
 	public Long register(BoardVO vo);
 	
 	//1건 조회 (상세보기)
-	public BoardVO get(Long bno);
+	public BoardVO CompanyValget(Long bno);
+	public BoardVO InterviewAnsget(Long bno);
+	public BoardVO Passlatterget(Long bno);
+	public BoardVO WorryQnAget(Long bno);
+	public BoardVO PassSelfIntroductget(Long bno);
 	
 	//페이지 관련
-	public List<BoardVO> getList(Criteria cri);
+	public List<BoardVO> CompanyValList(Criteria cri);
+	public List<BoardVO> InterviewAnsList(Criteria cri);
+	public List<BoardVO> PasslatterList(Criteria cri);
+	public List<BoardVO> WorryQnAList(Criteria cri);
+	public List<BoardVO> PassSelfIntroductList(Criteria cri);
 	
 	//1건 수정하기
 	public int modify(BoardVO vo);
@@ -30,6 +38,5 @@ public interface BoardService {
 
 	public List<MemberVO> memberdetail();
 
-	public List<BoardVO> getList();
 
 }

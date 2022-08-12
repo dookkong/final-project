@@ -33,11 +33,30 @@ public class BoardServiceImpl implements BoardService {
 		return vo.getBno();
 	}
 
-	@Override
 	//1건 조회 (글 상세보기)
-	public BoardVO get(Long bno) {
-		
-		return mapper.read(bno);
+	@Override
+	public BoardVO CompanyValget(Long bno) {
+		return mapper.CompanyValread(bno);
+	}
+	
+	@Override
+	public BoardVO InterviewAnsget(Long bno) {
+		return mapper.InterviewAnsread(bno);
+	}
+	
+	@Override
+	public BoardVO Passlatterget(Long bno) {	
+		return mapper.Passlatterread(bno);
+	}
+	
+	@Override
+	public BoardVO WorryQnAget(Long bno) {
+		return mapper.WorryQnAread(bno);
+	}
+	
+	@Override
+	public BoardVO PassSelfIntroductget(Long bno) {
+		return mapper.PassSelfIntroductread(bno);
 	}
 
 	@Override
@@ -54,12 +73,6 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.delete(bno);
 	}
 
-	@Override
-	//list 불러오기
-	public List<BoardVO> getList() {
-		
-		return mapper.getlist();
-	}
 
 	@Override
 	public List<MemberVO> management() {
@@ -75,15 +88,35 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public int getTotalCount(Criteria cri) {
-		log.info("getTotalCount..................");
 		return mapper.getTotalCount(cri);
 	}
-
+	
+	
+ // 각 게시판 불러오는 부분
 	@Override
-	public List<BoardVO> getList(Criteria cri) {
-		log.info("getList with criteria ==>" + cri);
-		
-		return mapper.getListWithPaging(cri);
+	public List<BoardVO> CompanyValList(Criteria cri) {	
+		return mapper.CompanyValPaging(cri);
 	}
+	
+	@Override
+	public List<BoardVO> InterviewAnsList(Criteria cri) {
+		return mapper.InterviewAnsPaging(cri);
+	}
+	
+	@Override
+	public List<BoardVO> PasslatterList(Criteria cri) {	
+		return mapper.PasslatterPaging(cri);
+	}
+	
+	@Override
+	public List<BoardVO> WorryQnAList(Criteria cri) {	
+		return mapper.WorryQnAPaging(cri);
+	}
+	
+	@Override
+	public List<BoardVO> PassSelfIntroductList(Criteria cri) {	
+		return mapper.PassSelfIntroductPaging(cri);
+	}
+
 
 }
