@@ -33,7 +33,7 @@ public class BoardMapperTests {
 		
 		vo.setTitle("제목1");
 		vo.setContent("내용1");
-		vo.setWriter("user01");
+		vo.setUserid("user01");
 		
 		mapper.insert(vo);
 	}
@@ -62,7 +62,7 @@ public class BoardMapperTests {
 		vo.setBno(5L);
 		vo.setTitle("타이틀02");
 		vo.setContent("내용02");
-		vo.setWriter("작성자02");
+		vo.setUserid("작성자02");
 		
 		mapper.update(vo);
 	}
