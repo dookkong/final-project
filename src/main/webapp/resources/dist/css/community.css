@@ -15,16 +15,19 @@
   height: 200px;
  }
 
- #title{
+#title{
   margin-top: 50px;
   margin-bottom: 80px;
   margin-left: 40px;
 }
 
-  #sec3{
-   background-color: darkorange;
-  }
-
-  #list{
+#list{
     margin-left: 380px;
   }
+  
+#search{
+	border: 1px solid black;
+	border-radius: 5px;
+	background: aqua;
+	margin-bottom: 20px;
+}
