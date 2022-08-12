@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.keduit.domain.BoardVO;
+import com.keduit.domain.Criteria;
 import com.keduit.mapper.BoardMapper;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Service
-@Log4j
 public class BoardServiceImpl implements BoardService {
 	
 	@Setter(onMethod_ = @Autowired)
@@ -50,8 +50,21 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	//list 불러오기
-	public List<BoardVO> getlist() {
+	
+	 public List<BoardVO> getlist() {
+	  
+	 return mapper.getlist(); }
+	
+	@Override
+	//페이지 처리 메서드
+	public List<BoardVO> getList(Criteria cri) {
 		
-		return mapper.getlist();
+		return mapper.getListWithPaging(cri);
+	}
+
+	@Override
+	public int getTotal(Criteria cri) {
+		
+		return mapper.getTotalCount(cri);
 	}
 }

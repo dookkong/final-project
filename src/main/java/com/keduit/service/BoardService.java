@@ -3,6 +3,7 @@ package com.keduit.service;
 import java.util.List;
 
 import com.keduit.domain.BoardVO;
+import com.keduit.domain.Criteria;
 
 public interface BoardService {
 	//새 글 작성
@@ -19,4 +20,10 @@ public interface BoardService {
 	
 	//list 불러오기
 	public List<BoardVO> getlist();
+	
+	//페이징처리 메서드
+	public List<BoardVO> getList(Criteria cri);
+	
+	//검색한 데이터 불러오기
+	public int getTotal(Criteria cri);
 }

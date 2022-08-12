@@ -3,12 +3,15 @@ package com.keduit.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keduit.domain.BoardVO;
+import com.keduit.domain.Criteria;
+import com.keduit.domain.PageDTO;
 import com.keduit.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,10 +30,10 @@ public class BoardController {
 		log.info("list...........");
 	}
 	
+	//리스트 불러오기
 	@GetMapping("/community1")
 	public void community1(Model model) {
 		log.info("community1...............");
-		model.addAttribute("list",service.getlist());
 	}
 	
 	@GetMapping("/community2")
@@ -39,13 +42,23 @@ public class BoardController {
 	}
 	
 	@GetMapping("/community3")
-	public void community3(Model model) {
+	public void community3(Criteria cri, Model model) {
 		log.info("community3...............");
+		log.info(cri);
+		
+		model.addAttribute("list",service.getList(cri));
+		int total = service.getTotal(cri);
+		model.addAttribute("pageMaker", new PageDTO(cri,total));
 	}
 	
 	@GetMapping("/community4")
-	public void community4(Model model) {
+	public void community4(Criteria cri, Model model) {
 		log.info("community4...............");
+		log.info(cri);
+		
+		model.addAttribute("list",service.getList(cri));
+		int total = service.getTotal(cri);
+		model.addAttribute("pageMaker", new PageDTO(cri,total));
 	}
 	
 	@GetMapping("/login")
@@ -58,79 +71,102 @@ public class BoardController {
 		log.info("mypage...............");
 	}
 	
-	@GetMapping("/reg")
-	public void reg(Model model) {
+	//새 글 작성 내용 담기
+	@GetMapping({"/reg3", "/reg"})
+	public void reg() {
 		log.info("reg...............");
 	}
 	
-	@GetMapping("/reg-detail")
-	public void regdetail(Model model) {
+	//새 글 작성한 내용 날리기 커뮤니티3
+	@PostMapping("/reg3")
+	 public String register(BoardVO vo, RedirectAttributes rttr) {
+	 log.info("reg...............");
+	  
+	 Long bno = service.register(vo);
+	 
+	 rttr.addFlashAttribute("result",vo.getBno());
+	 
+	 return "redirect:/board/community3";
+	 }
+	
+	//새 글 작성한 내용 날리기 커뮤니티4
+	@PostMapping("/reg")
+	 public String register4(BoardVO vo, RedirectAttributes rttr) {
+	 log.info("reg...............");
+	  
+	 Long bno = service.register(vo);
+	 
+	 rttr.addFlashAttribute("result",vo.getBno());
+	 
+	 return "redirect:/board/community4";
+	 }
+	
+	//1건 조회하기
+	@GetMapping({"/reg-detail3", "/modify3", "/reg-detail", "/modify"})
+	public void regdetail(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri, Model model) {
+		log.info("get..."+bno);
 		log.info("reg-detail...............");
+		model.addAttribute("board", service.get(bno));
 	}
 	
 	@GetMapping("/sign")
 	public void sign(Model model) {
 		log.info("sign...............");
 	}
-	
-	//리스트 불러오기
-	@GetMapping("/list")
-	public void list(Model model) {
-		log.info("list.............");
-		
-		model.addAttribute("list",service.getlist());
-	}
-	
-	//1건 조회하기
-	 @GetMapping({"/get", "/modify"}) public void get(@RequestParam("bno") Long bno, 
-			 Model model) { 
-		 model.addAttribute("Board", service.get(bno));
-	 }
 	 
-	
-	//새 글 작성 내용 담기
-	 @GetMapping("/register") public void registerGet() {
-	 
-	 }
-	
-	 
-	//새 글 작성한 내용 날리기
-	@PostMapping("/register")
-	 public String register(BoardVO vo, RedirectAttributes rttr) {
-	 log.info("register..........");
-	  
-	 Long bno = service.register(vo);
-	 
-	 rttr.addFlashAttribute("result",vo.getBno());
-	 
-	 return "redirect:/board/list";
-	 }
-	 
-	
-	//1건 수정하기
-	 @PostMapping("/modify") public String modify(BoardVO vo, RedirectAttributes rttr) {
+	 //1건 수정하기
+	 @PostMapping("/modify3") 
+	 public String modify(@RequestParam("bno") Long bno, BoardVO vo, RedirectAttributes rttr) {
 	 
 	 int count = service.modify(vo);
 	  
 	 //1건 수정이 정상적으로 작동 되었을 경우
 	 if(count == 1) {
-	 rttr.addFlashAttribute("result","수정 성공");
+		 rttr.addFlashAttribute("result","success");
 	 }
 	 
-	 return "redirect:/board/list";
+	 return "redirect:/board/reg-detail3?bno=" + bno;
+	 }
+	 
+	 //1건 수정하기 (커뮤니티 4)
+	 @PostMapping("/modify") 
+	 public String modify4(BoardVO vo, RedirectAttributes rttr) {
+	 
+	 int count = service.modify(vo);
+	  
+	 //1건 수정이 정상적으로 작동 되었을 경우
+	 if(count == 1) {
+	 rttr.addFlashAttribute("result","success");
+	 }
+	 
+	 return "redirect:/board/reg-detail";
 	 }
 	 
 	
 	//1건 삭제하기
-	 @PostMapping("/remove") public String remove(@RequestParam("bno") Long bno, 
+	 @PostMapping("/remove3") 
+	 public String remove(@RequestParam("bno") Long bno, 
 			 RedirectAttributes rttr) {
 	  
 	 int count = service.remove(bno);
 	  
 	 //1건 삭제가 정상적으로 작동 되었을 경우 if(count == 1) {
-	 rttr.addFlashAttribute("result","삭제 성공");
+	 rttr.addFlashAttribute("result","success");
 	  
-	 return "redirect:/board1/list";
+	 return "redirect:/board/community3";
+	 }
+	 
+	 //1건 삭제하기
+	 @PostMapping("/remove") 
+	 public String remove4(@RequestParam("bno") Long bno, 
+			 RedirectAttributes rttr) {
+	  
+	 int count = service.remove(bno);
+	  
+	 //1건 삭제가 정상적으로 작동 되었을 경우 if(count == 1) {
+	 rttr.addFlashAttribute("result","success");
+	  
+	 return "redirect:/board/community4";
 	 }
 	 
 }
