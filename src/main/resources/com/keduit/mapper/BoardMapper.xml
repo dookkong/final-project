@@ -6,28 +6,78 @@
   <mapper namespace="com.keduit.mapper.BoardMapper">
   
   <select id="getlist" resultType="com.keduit.domain.BoardVO">
-  	<!-- <![CDATA[
-  	 where bno > 0 
-  	]]> -->
-  	select * from t_board order by bno desc
+  <![CDATA[
+  	 select * from CompanyVal_TB where bno > 0 
+  ]]>
+  </select>
+  
+  <!-- search 하여 읽어온 데이터의 수 만큼 페이지 수를 정해주기 -->
+  <!-- 실행 될 trim문 안에 가장 앞에 해당하는 문자들이 있으면 지워준다. -->
+  <!-- typeArr에서 인자 값을 받기 -->
+  <!-- title like 'Test' OR content like 'Test' OR writer... -->
+  <!-- || : OR / % : like -->
+  <sql id="criteria">
+  	<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+  		<foreach item="type" collection="typeArr">
+  			<trim prefix="OR">
+  				<choose>
+  					<when test="type == 'T'.toString()" >
+  						title like '%'||#{keyword}||'%'
+  					</when>
+  					
+  					<when test="type == 'C'.toString()" >
+  						content like '%'||#{keyword}||'%'
+  					</when>
+  					
+  					<when test="type == 'W'.toString()" >
+  						userid like '%'||#{keyword}||'%'
+  					</when>
+  				</choose>
+  			</trim>
+  		</foreach>
+  	</trim>
+  </sql>
+  
+  <select id="getListWithPaging" resultType="com.keduit.domain.BoardVO">
+  	select bno, title, content, userid, regdate, updatedate, views, likes
+  	from(
+  		<!-- bno의 제약조건 인덱스명 SYS_C007294-->
+  		select /*+INDEX_DESC(CompanyVal_TB COMPANYVAL_BNO)*/
+  		rownum rn, bno, title, content, userid, regdate, updatedate, views, likes
+  		from CompanyVal_TB
+  		where
+  		<!-- refid(레퍼런스 id) : 불러올 id -->
+  		<!-- 검색 조건 sql 넣기 id=criteria-->
+  		<!-- (title like...) and -->
+  		<include refid="criteria"></include>
+  		
+  		<!-- 1p~2p에 해당하는 데이터의 수 많큼 부른 뒤 윗 번호 잘라내기 -->
+  	<![CDATA[
+  		rownum <= #{pageNum} * #{amount}
+  	)where rn > (#{pageNum}-1) * #{amount} 
+  	]]>
+  </select>
+  
+  <select id="getTotalCount" resultType="int">
+  	select count(*) from CompanyVal_TB
   </select>
   
   <insert id="insert">
-  	insert into team_board(bno, title, content, writer) 
-	values(seq_team_board.nextval, #{title}, #{content}, #{writer})
+  	insert into CompanyVal_TB(bno, title, content) 
+	values(seq_CompanyVal.nextval, #{title}, #{content})
   </insert>
   
   <select id="read" resultType="com.keduit.domain.BoardVO">
-  	select * from t_board where bno = #{bno}
+  	select * from CompanyVal_TB where bno = #{bno}
   </select>
   
   <delete id="delete">
-  	delete from team_board where bno = #{bno}
+  	delete from CompanyVal_TB where bno = #{bno}
   </delete>
   
   <update id="update">
-  	update team_board
-  	set title = #{title}, content = #{content}, writer = #{writer}, updatedate = sysdate
+  	update CompanyVal_TB
+  	set title = #{title}, content = #{content}, userid = #{userid}, updatedate = sysdate 
   	where bno = #{bno}
   </update>
   
