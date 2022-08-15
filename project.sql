@@ -14,6 +14,8 @@ CONSTRAINT CompanyVal_bno PRIMARY KEY (bno),
 CONSTRAINT CompanyVal_userid foreign key(userid) references Member_TB(userid)
 );
 
+alter table CompanyVal_TB modify userid null;
+
 select * from CompanyVal_TB; 
 drop TABLE CompanyVal_TB;
 
@@ -168,7 +170,10 @@ CREATE TABLE CompanyVal_reply_TB(
  CONSTRAINT CompanyVal_reply_userid foreign key(userid) references Member_TB(userid)
  ); 
  
- select * from CompanyVal_reply_TB; 
+ select * from CompanyVal_reply_TB;
+ 
+ insert into CompanyVal_reply_TB(rno, bno, reply, userid)
+(select seq_CompanyVal_reply.nextval, bno, reply, userid from CompanyVal_reply_TB);
  
 INSERT INTO CompanyVal_reply_TB(rno, bno, reply, userid) VALUES(seq_CompanyVal_reply.nextval, 42, '댓글을 해보자','chun');
 INSERT INTO CompanyVal_reply_TB(rno, bno, reply, userid) VALUES(seq_CompanyVal_reply.nextval, 43, '댓글 두번째','gyen');
