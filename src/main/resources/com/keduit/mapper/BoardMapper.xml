@@ -60,6 +60,14 @@
   
   <select id="getTotalCount" resultType="int">
   	select count(*) from CompanyVal_TB
+  	where
+  	<!-- 검색 조건 sql 넣기 id=criteria-->
+  	<include refid="criteria"></include>
+  	
+  	<![CDATA[
+  	bno > 0
+  	]]>
+  	
   </select>
   
   <insert id="insert">
@@ -80,5 +88,9 @@
   	set title = #{title}, content = #{content}, userid = #{userid}, updatedate = sysdate 
   	where bno = #{bno}
   </update>
+  
+<!--   <update id="updateReplyCnt">
+  	update CompanyVal_TB set replyCnt = 
+  </update> -->
   
   </mapper>

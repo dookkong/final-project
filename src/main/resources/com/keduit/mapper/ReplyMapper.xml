@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.keduit.mapper.ReplyMapper">
+
+	<insert id="insert">
+		insert into CompanyVal_reply_TB(rno, bno, reply, userid)
+		values (seq_CompanyVal_reply.nextval, #{bno}, #{reply}, #{userid})
+	</insert>
+	
+	<select id="read" resultType="com.keduit.domain.ReplyVO">
+		select * from CompanyVal_reply_TB where rno = #{rno}
+	</select>
+	
+	<select id="getListWithPaging" resultType="com.keduit.domain.ReplyVO">
+	<![CDATA[
+		select rno, bno, reply, userid, regdate, updatedate
+		from (
+			select /*INDEX(CompanyVal_reply_TB COMPANYVAL_REPLY_RNO)*/
+			rownum rn, bno, rno, reply, userid, regdate, updatedate
+			from CompanyVal_reply_TB
+			where bno = #{bno} and rno > 0 and rownum <= #{cri.pageNum} * #{cri.amount} 
+		)
+		where rn > (#{cri.pageNum}-1) * #{cri.amount}
+	]]>
+	</select>
+	
+	<!-- 특정 게시글에 달린 댓글의 개수 -->
+	<select id="getCountByBno" resultType="int">
+		select count(rno) from CompanyVal_reply_TB where bno = #{bno}
+	</select>
+	
+	<delete id="delete">
+		delete from CompanyVal_reply_TB where rno = #{rno}
+	</delete>
+	
+	<update id="update">
+		update CompanyVal_reply_TB set reply = #{reply}, updatedate = sysdate
+		where rno = #{rno}
+	</update>
+	
+</mapper>
