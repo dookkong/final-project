@@ -15,6 +15,10 @@
                     	<form role="form" action="/board/modify3" method="post">
                           <div class="form-group">
                           	  <input type='hidden' name='bno' value='<c:out value="${board.bno }"/>'>
+                          	  <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum }"/>'>
+                          	  <input type='hidden' name='amount' value='<c:out value="${cri.amount }"/>'>
+                          	  <input type='hidden' name='type' value='<c:out value="${cri.type }"/>'>
+                          	  <input type='hidden' name='keyword' value='<c:out value="${cri.keyword }"/>'>
                           	  
                               <label>제목</label>
                               <input class="form-control" name="title" 

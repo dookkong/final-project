@@ -151,6 +151,8 @@ $(document).ready(function () {
 		}
 		
 		if(parseInt(result) > 0){
+			console.log("modal........")
+			
 			$(".modal-body").html("게시글이 등록 되었습니다.");
 		}
 		$("#myModal").modal("show");
