@@ -80,25 +80,25 @@ public class BoardController {
 	//새 글 작성한 내용 날리기 커뮤니티3
 	@PostMapping("/reg3")
 	 public String register(BoardVO vo, RedirectAttributes rttr) {
-	 log.info("reg...............");
+		log.info("reg...............");
 	  
-	 Long bno = service.register(vo);
+		Long bno = service.register(vo);
 	 
-	 rttr.addFlashAttribute("result",vo.getBno());
+		rttr.addFlashAttribute("result",vo.getBno());
 	 
-	 return "redirect:/board/community3";
+		return "redirect:/board/community3";
 	 }
 	
 	//새 글 작성한 내용 날리기 커뮤니티4
 	@PostMapping("/reg")
-	 public String register4(BoardVO vo, RedirectAttributes rttr) {
-	 log.info("reg...............");
+	public String register4(BoardVO vo, RedirectAttributes rttr) {
+		log.info("reg...............");
 	  
-	 Long bno = service.register(vo);
+		Long bno = service.register(vo);
 	 
-	 rttr.addFlashAttribute("result",vo.getBno());
+		rttr.addFlashAttribute("result",vo.getBno());
 	 
-	 return "redirect:/board/community4";
+		return "redirect:/board/community4";
 	 }
 	
 	//1건 조회하기
@@ -116,57 +116,62 @@ public class BoardController {
 	 
 	 //1건 수정하기
 	 @PostMapping("/modify3") 
-	 public String modify(@RequestParam("bno") Long bno, BoardVO vo, RedirectAttributes rttr) {
+	 public String modify(@RequestParam("bno") Long bno, BoardVO vo, 
+			 @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 	 
-	 int count = service.modify(vo);
+		 int count = service.modify(vo);
 	  
-	 //1건 수정이 정상적으로 작동 되었을 경우
-	 if(count == 1) {
-		 rttr.addFlashAttribute("result","success");
-	 }
+		 //1건 수정이 정상적으로 작동 되었을 경우
+		 if(count == 1) {
+			 rttr.addFlashAttribute("result","success");
+		 }
 	 
-	 return "redirect:/board/reg-detail3?bno=" + bno;
+		 return "redirect:/board/reg-detail3?bno=" + bno+"&"+cri.getLinkList();
 	 }
 	 
 	 //1건 수정하기 (커뮤니티 4)
 	 @PostMapping("/modify") 
-	 public String modify4(BoardVO vo, RedirectAttributes rttr) {
+	 public String modify4(@RequestParam("bno") Long bno, BoardVO vo, 
+			 @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 	 
-	 int count = service.modify(vo);
+		 int count = service.modify(vo);
 	  
-	 //1건 수정이 정상적으로 작동 되었을 경우
-	 if(count == 1) {
-	 rttr.addFlashAttribute("result","success");
-	 }
+		 //1건 수정이 정상적으로 작동 되었을 경우
+		 if(count == 1) {
+			 rttr.addFlashAttribute("result","success");
+		 }
 	 
-	 return "redirect:/board/reg-detail";
+		 return "redirect:/board/reg-detail?bno=" + bno+"&"+cri.getLinkList();
 	 }
 	 
 	
 	//1건 삭제하기
 	 @PostMapping("/remove3") 
-	 public String remove(@RequestParam("bno") Long bno, 
+	 public String remove(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri,
 			 RedirectAttributes rttr) {
+		 
+		 int count = service.remove(bno);
 	  
-	 int count = service.remove(bno);
-	  
-	 //1건 삭제가 정상적으로 작동 되었을 경우 if(count == 1) {
-	 rttr.addFlashAttribute("result","success");
-	  
-	 return "redirect:/board/community3";
+		 //1건 삭제가 정상적으로 작동 되었을 경우
+		 if(count == 1) {
+			 rttr.addFlashAttribute("result","success");
+		 }
+	 
+		 return "redirect:/board/community3";
 	 }
 	 
-	 //1건 삭제하기
 	 @PostMapping("/remove") 
-	 public String remove4(@RequestParam("bno") Long bno, 
+	 public String remove4(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri,
 			 RedirectAttributes rttr) {
 	  
-	 int count = service.remove(bno);
+		 int count = service.remove(bno);
 	  
-	 //1건 삭제가 정상적으로 작동 되었을 경우 if(count == 1) {
-	 rttr.addFlashAttribute("result","success");
-	  
-	 return "redirect:/board/community4";
+		 //1건 삭제가 정상적으로 작동 되었을 경우
+		 if(count == 1) {
+			 rttr.addFlashAttribute("result","success");
+		 }
+		 
+		 return "redirect:/board/community4";
 	 }
 	 
 }

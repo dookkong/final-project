@@ -2,6 +2,8 @@ package com.keduit.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.keduit.domain.BoardVO;
 import com.keduit.domain.Criteria;
 
@@ -26,4 +28,6 @@ public interface BoardMapper {
 	
 	//Criteria 내부의 검색 조건을 이용하여 데이터를 뿌려주기 위해 파라미터로 받는다.
 	public int getTotalCount(Criteria cri);
+	
+	//public void updateReplyCnt(@Param ("bno") Long bno, @Param("amount") int amount);
 }
