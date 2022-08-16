@@ -62,9 +62,64 @@
       <textarea style="width: 1200px;   height: 100px;">댓글을 입력하시오
       </textarea>
       <div class="btn-reg-detail">
-        <button type="button" style="border-radius: 5px;">등록</button>
+        <button type="button" id="addReplyBtn" style="border-radius: 5px;">등록</button>
       </div>
     </div>
+
+<script type="text/javascript" src="/resources/js/reply.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		console.log("JS TEST================!!");
+		
+		//특정 게시글에 댓글이 달려있으므로 bno 값을 담기
+		var bnoValue = '<c:out value="${board.bno}"/>';
+		var replyUL = $(".chat"); //ul, li 생기면 ul class명으로 변경 예정
+		
+		showList(1); //1페이지 댓글 목록을 불러와줌
+		
+		function showList(page) {
+			console.log("showList page: "+page);
+			                                   //저장된 페이지 값이 없으면 1페이지
+			replyService.getList({bno:bnoValue, page:page||1},
+					function(list) {
+				//reply.js    ReplyPageDTO > list
+						console.log("list : "+list);
+						
+						showList(pageNum);
+						
+						return;
+				
+				var str = "";
+				
+				//글이 없거나 배열의 길이가 0이면
+				if(list == null || list.length == 0){
+					//.chat 의 내용을 가져온다.
+					replyUL.html("");
+					return;
+				}
+				
+				for(var i=0, len=list.length || 0; i < len; i++){
+					//일단 ul과 li가 있다는 전제하에 댓글 코드 작업
+					//data-rno = list[i].rno > 커스텀속성
+					str += "<li class='#' data-rno='"+list[i].rno+"'>";
+				 	str += "<div><div class='chat-content'><strong class='#'>"
+				 			+list[i].userid+"</strong>";
+				 	str += "<small class='#'>"
+				 			+replyService.displayTime(list[i].replydate)
+				 			+"</small></div>";
+					str += "<p>"+list[i].reply+"</p>";
+					str += "</div></li>";
+				}
+				
+				//str에 담아준 내용으로 replyUL의 내용 변경
+				replyUL.html(str);
+				
+				showReplyPage(); //고민해보기
+			}); //end replyService.getList
+		} //end showList
+	})
+</script>
     
 <script type="text/javascript">
 
