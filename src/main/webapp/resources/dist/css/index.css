@@ -26,15 +26,8 @@
     margin-left: 50px;
     height: 400px;
 }
-  
-#sec{
-   left: 0px;
-   height: 600px;
-   justify-content: space-around;
- }
  
  #sec2{
-  background: rebeccapurple;
    position: relative; right: 0px;
     height: 600px;
   }
@@ -43,14 +36,12 @@
   position: relative; top: 80px;
    height: 450px;
    width: 300px;
-   background-color:rgb(106, 80, 255);
  }
  
  #sec-2{
    position: relative; top: 80px;
     height: 450px;
     width: 300px;
-    background-color: rgb(106, 80, 255);
   }
  
   #sec2-1{
