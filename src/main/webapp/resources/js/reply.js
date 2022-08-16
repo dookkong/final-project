@@ -7,7 +7,7 @@ var replyService = (function(){
 			type:'post',
 			url: '/replies/creat',
 			data: JSON.stringify(reply),
-			contentType: "application/json; charset=utf8"
+			contentType: "application/json; charset=utf-8"
 		})
 		.done(function(result, status, xhr){
 			if(callback){
@@ -19,7 +19,7 @@ var replyService = (function(){
 				error(er);
 			}
 		});
-	};
+	}
 	
 	function getList(param, callback, error){
 		var bno = param.bno;
@@ -38,7 +38,7 @@ var replyService = (function(){
 				error(er);
 			}
 		});
-	};
+	}
 	
 	function get(rno, callback, error){
 		console.log("get rno-------"+rno);
@@ -54,7 +54,7 @@ var replyService = (function(){
 				error(er);
 			}
 		});
-	};
+	}
 	
 	function remove(rno, callback, error){
 		console.log("remove rno-------"+rno);
@@ -73,7 +73,7 @@ var replyService = (function(){
 				error(er);
 			}
 		});
-	};
+	}
 	
 	function update(reply, callback, error){
 		console.log("update rno-------"+reply.rno);
@@ -94,7 +94,7 @@ var replyService = (function(){
 				error(er);
 			}
 		});
-	};
+	}
 	
 	function displayTime(timeValue){
 		var today = new Date();
@@ -104,6 +104,21 @@ var replyService = (function(){
 		var dd2 = dateObj.getDate();
 		
 		var str = "";
+		
+		if(gap < (1000 * 60 * 60 * 24)){
+			var hh = dateObj.getHours();
+			var mi = dateObj.getMinutes();
+			var ss = dateObj.getSeconds();
+			
+			return [(hh>9?'':'0')+hh, ':', (mi>9?'':'0')+mi,
+			':', (ss>9?'':'0')+ss].join('');
+		}else{
+			var yy = dateObj.getFullYear();
+			var mm = dateObj.getMonth()+1;
+			var dd = dateObj.getDate();
+			
+			return [yy, '/', (mm>9?'':'0')+mm, '/', (dd>9?'':'0')+dd].join('');
+		}
 	}
 	
 	return{add:add,
@@ -111,6 +126,5 @@ var replyService = (function(){
 		   get:get,
 		   remove:remove,
 		   update:update,
-		   displayTime:displayTime
-		   };
+		   displayTime:displayTime};
 })();
