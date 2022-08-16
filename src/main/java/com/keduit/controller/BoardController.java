@@ -22,7 +22,7 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @RequiredArgsConstructor
 @Log4j
-@RequestMapping("/board/*")
+@RequestMapping({"/board/*","/mypage/*"})
 public class BoardController {
 	
 	private final BoardService service;
@@ -32,6 +32,10 @@ public class BoardController {
 		cri.setAmount(10);
 		model.addAttribute("CompanyVal",service.CompanyValViewsList(cri));
 		model.addAttribute("InterviewAns",service.InterviewAnsViewsList(cri));
+	}
+	
+	@GetMapping("/edit")
+	public void edit(Model model) {
 	}
 	
 	@GetMapping("/login")

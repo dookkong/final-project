@@ -2,47 +2,78 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
 
-<link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/headers/">
-<link href="/resources/dist/css/bootstrap.css" rel="stylesheet">  
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
- 
-<link rel="icon" type="img/png" sizes="16x16" href="/resources/image/favicon-16x16.png">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Dev'ils</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+
+  <!-- Favicons -->
+  <link rel="icon" type="img/png" sizes="16x16" href="/resources/image/favicon-16x16.png">
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,400,500,600,700"
+    rel="stylesheet">
+
+  <!--  CSS Files -->
+  <link href="/resources/dist/css/aos.css" rel="stylesheet">
+  <link href="/resources/dist/css/bootstrap.inquiry_m.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="/resources/dist/css/style.css" rel="stylesheet">
 
 </head>
+
 <body>
 
-<main>
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center ">
+    <div class="container d-flex align-items-center">
 
-<div class="container">
-   <h1>
-   	<a href="./index.html" style="text-decoration: none; color: black;">
-   DEV'ILs 
-  	</a>
-  </h1>
-</div>
-<hr>
+      <h1 class="logo me-auto"><a href="index.html">Dev'ils</a></h1>
+      <!-- img logo -->
+      <!-- <a href="index.html" class="logo me-auto">
+        <img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
-<header class="p-3 mb-3 border-top" id="menu">
-  <div class="container" >
-    <ul class="nav col-12 col-lg-auto me-lg-auto mb-5 justify-content-center mb-md-0" id="main-menu">
-      <li><a href="./index.html">홈</a></li>
-      <li><a href="./community1.html">회사평가</a></li>
-      <li><a href="./community2.html">면접질문</a></li>
-      <li><a href="./community3.html">합격후기</a></li>
-      <li><a href="./community4.html">고민Q&A</a></li>
-      <li><a href="./community5.html">합격자소서</a></li>
-    </ul>
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto " href="./index.html">홈</a></li>
+          <li><a class="nav-link scrollto" href="./community1.html">회사평가</a></li>
+          <li><a class="nav-link scrollto" href="./community2.html">면접질문</a></li>
+          <li><a class="nav-link scrollto" href="./community3.html">합격후기</a></li>
+          <li><a class="nav-link scrollto" href="./community4.html">Q&A</a></li>
+           <li><a class="nav-link scrollto " href="./community5.html">합격자소서</a></li>
+          <li><a class="btn btn-outline-info text-center" href="inquiry.html">로그인</a></li>
+          <li><a class="btn btn-outline-info text-center" href="inquiry.html">회원가입</a></li>
+          <!-- <li class="dropdown"><a href="./community4.html"><span>Q&A</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="#">고민</a></li>
+              <li class="dropdown"><a href="#"><span>취업</span> <i class="bi bi-chevron-right"></i></a>
+                <ul>
+                  <li><a href="#">스택</a></li>
+                  <li><a href="#">자격증</a></li>
+                </ul>
+              </li>
 
-      <div class="container" id="log">
-        <a href="./login.html">
-          <button type="button" class="btn btn-outline-primary">로그인/회원가입</button>
-        </a>
-      </div>
+              <li><a href="#">무얼</a></li>
+              <li><a href="#">넣을까요</a></li>
+
+            </ul>
+          </li> -->
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+
     </div>
-</header>
+  </header><!-- End Header -->
+
+   <script src="/resources/dist/js/aos.js"></script>
+  <script src="/resources/dist/js/bootstrap.inquiry_b.js"></script>
+  
+    <!-- Template Main JS File -->
+  <script src="/resources/dist/js/main.js"></script>
