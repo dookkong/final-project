@@ -47,8 +47,8 @@
           <li><a class="nav-link scrollto" href="./community3.html">합격후기</a></li>
           <li><a class="nav-link scrollto" href="./community4.html">Q&A</a></li>
            <li><a class="nav-link scrollto " href="./community5.html">합격자소서</a></li>
-          <li><a class="btn btn-outline-info text-center" href="inquiry.html">로그인</a></li>
-          <li><a class="btn btn-outline-info text-center" href="inquiry.html">회원가입</a></li>
+          <li><a class="btn btn-outline-info text-center" href="login.html">로그인</a></li>
+          <li><a class="btn btn-outline-info text-center" href="sign.html">회원가입</a></li>
           <!-- <li class="dropdown"><a href="./community4.html"><span>Q&A</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">고민</a></li>
