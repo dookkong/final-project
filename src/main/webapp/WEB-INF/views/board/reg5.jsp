@@ -5,7 +5,7 @@
     
 <link href="/resources/dist/css/headers.css" rel="stylesheet">
 <link href="/resources/dist/css/community.css" rel="stylesheet">
-<link href="/resources/dist/css/reg.css" rel="stylesheet"> 
+<link href="/resources/dist/css/reg.css" rel="stylesheet">   
     
 <nav class="container">
   <img src="/resources/image/re.png" id="re">
@@ -18,11 +18,11 @@
 <form id="register-form" action="/board/reg1-1" method="post">
   <div>
   	<select style="border-radius: 5px; background: aqua;" name="select">
-  	  	<option value="InterviewAns">면접질문 게시판</option>
+   		<option value="PassSelfIntroduct">합격자소서 게시판</option>
   		<option value="CompanyVal">회사평가 게시판</option>
+  		<option value="InterviewAns">면접질문 게시판</option>
   		<option value="Passlatter">합격후기 게시판</option>
   		<option value="WorryQnA">고민Q&A 게시판</option>
-  		<option value="PassSelfIntroduct">합격자소서 게시판</option>
   	</select>
   </div>
   
@@ -35,7 +35,7 @@
   <input type="text" placeholder="글제목을 입력하세요" style="width: 1200px;" name="title">  
 <br>
 <br>
-  <input type="file">  
+  <input type="file"> 
 <br>
 <br>
   <textarea style="width: 1400px; height: 1200px; resize: none;" name="content"></textarea>

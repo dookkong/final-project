@@ -1,28 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <%@ include file="../includes/header.jsp" %> 
 
 <link href="/resources/dist/css/headers.css" rel="stylesheet">
 <link href="/resources/dist/css/index.css" rel="stylesheet">
-<link href="/resources/dist/css/bootstrap.css" rel="stylesheet">
-    
-<!-- ----------------------------------------슬라이드 부분------------------------------------------------- -->
- 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet">    
 
+<!-- ----------------------------------------슬라이드 부분------------------------------------------------- -->
 <div id="slider" style="z-index: 1;">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
-<div class="container">
-  <div class="bxslider">
-    <div id="img"><img src="/resources/image/qwe.jpg"></div>
-    <div id="img"><img src="/resources/image/wer.jpg"></div>
-    <div id="img"><img src="/resources/image/ert.jpg"></div>
-  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
+
+  <div class="container">
+  	<div class="bxslider">
+    	<div id="img"><img src="/resources/image/qwe.jpg"></div>
+    	<div id="img"><img src="/resources/image/wer.jpg"></div>
+    	<div id="img"><img src="/resources/image/ert.jpg"></div>
+  	</div>
+   </div>
 </div>
-</div>
+
 <script>
   $(document).ready(function(){
     $('.bxslider').bxSlider();
@@ -33,15 +34,80 @@
   
 </main>
 
-
-<section class="container" id="sec">
-<div id="sec-1">
-<h3 style="text-align: center">인기글</h3>
-</div>
-
-<div id="sec-2">
-  <h3 style="text-align: center">인기글</h3>
-</div>
+<section class="container" id="sec" style="height: 600px; width: 1300px;">
+	<div id="sec-2" style="width: 600px;">
+  		<h3 style="text-align: center">회사 평가 인기글</h3>
+            	<div class="panel-body">  	
+               		<table class="table table-striped table-bordered table-hover" style="width: 600px;">
+                    	<thead>
+                        		<tr style="font-size: 15px; text-align: center;">
+                            	<th style="width: 50px;">번호</th>
+                            	<th style="width: 240px;">제목</th>
+                            	<th style="width: 55px;">작성자</th>
+                            	<th style="width: 70px;">작성일</th>
+                            	<th style="width: 55px;">조회수</th>
+                            	<th style="width: 55px;">좋아요</th>
+                        	</tr>
+                    	</thead>        
+                    	<tbody>
+                    	 <c:forEach items="${CompanyVal}" var="board">
+                        	<tr class="odd gradeX" style="font-size: 15px; text-align: center;">
+                            	<td><c:out value="${board.bno}"/></td>
+                            	<td style="text-align: left;">
+                            		<a class="move" style="text-decoration: none; color: black;"
+                            			href='/board/reg-detail1?bno=<c:out value="${board.bno }"/>'>
+                            			<c:out value="${board.title}"/>
+                            		</a>
+                            	</td>
+                            	<td><c:out value="${board.userid}"/></td>
+                            	<td style="font-size: 12px;">
+                            	<fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate}"/>
+                             	</td>
+                            	<td style="font-size: 12px;"><c:out value="${board.views}"/></td>
+                            	<td style="font-size: 12px;"><c:out value="${board.likes}"/></td>
+                        	</tr>
+                      	 </c:forEach>
+                    	</tbody>
+                	</table>
+          		</div>
+	</div>
+	
+	<div id="sec-2" style="width: 600px; position: relative; left: 80px;">
+  		<h3 style="text-align: center">면접 질문 인기글</h3>
+            	<div class="panel-body">  	
+               		<table class="table table-striped table-bordered table-hover" style="width: 600px;">
+                    	<thead>
+                        	<tr style="font-size: 15px; text-align: center;">
+                            	<th style="width: 50px;">번호</th>
+                            	<th style="width: 240px;">제목</th>
+                            	<th style="width: 55px;">작성자</th>
+                            	<th style="width: 70px;">작성일</th>
+                            	<th style="width: 55px;">조회수</th>
+                            	<th style="width: 55px;">좋아요</th>
+                        	</tr>
+                    	</thead>        
+                    	<tbody>
+                    	 <c:forEach items="${InterviewAns}" var="board">
+                        	<tr class="odd gradeX" style="font-size: 15px; text-align: center;">
+                            	<td><c:out value="${board.bno}"/></td>
+                            	<td style="text-align: left;">
+                            		<a class="move" style="text-decoration: none; color: black;"
+                            			href='/board/reg-detail2?bno=<c:out value="${board.bno }"/>'>
+                            			<c:out value="${board.title}"/>
+                            		</a>
+                            	</td>
+                            	<td><c:out value="${board.userid}"/></td>
+                            	<td style="font-size: 12px;">
+                            	<fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate}"/>
+                             	</td>
+                            	<td style="font-size: 12px;"><c:out value="${board.views}"/></td>
+                            	<td style="font-size: 12px;"><c:out value="${board.likes}"/></td>
+                        	</tr>
+                      	 </c:forEach>
+                    	</tbody>
+                	</table>
+          		</div>
+	</div>
 </section>
 
 <section class="container" id="sec2">

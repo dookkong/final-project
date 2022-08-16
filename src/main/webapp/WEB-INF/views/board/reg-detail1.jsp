@@ -19,8 +19,8 @@
   <br>
   <br>
   <div class="btn-reg-detail">
-<button type="button" style="border-radius: 5px;">목록</button>
-<button type="button" style="border-radius: 5px;">다음글></button>
+<button type="button" data-oper="community1" style="border-radius: 5px;">목록</button>
+<input type="button" id="next" value="다음글" style="border-radius: 5px; background: green;">
   </div>
   <br>
   <br>
@@ -28,16 +28,26 @@
       <div class="div2">
         <h2><b><c:out value="${board.title }"/></b></h2>
         <h5><b><c:out value="${board.userid }"/></b></h5>
+        
         <div class="btn-reg-detail">
-          <button type="button" style="border-radius: 5px;" onclick="location.href = './modify1.html'">수정</button>
-          <button type="button" style="border-radius: 5px;">삭제</button>
-            </div>
-        <h6><c:out value="${board.regdate }"/></h6>
+          <button type="button" data-oper="modify" style="border-radius: 5px;">수정</button>
+          <button type="button" data-oper="remove" style="border-radius: 5px;">삭제</button>
+        </div>
+            
+        <h6><fmt:formatDate pattern="yyyy-MM-dd" value="${board.updatedate }"/> 조회수 
+        	<c:out value="${board.views }"/></h6>
             <hr>
             <br>
-            <div class="btn-reg-detail-content">
+            
+        <div class="btn-reg-detail-content">
              <c:out value="${board.content }"/>
-            </div>
+        </div>
+            
+        <form id="operForm" action="/board/modify1" method="get">
+           <input type='hidden' id="bno" name="bno" value='${board.bno }'>
+           <input type='hidden' name="pageNum" value='${cri.pageNum }'>
+           <input type='hidden' name="amount" value='${cri.amount }'>                                
+        </form>
       </div>
     </div>
     
@@ -73,27 +83,10 @@
       </div>
     </div>
 </div>
-    
-<script type="text/javascript" src="/resources/js/reply2.js"></script>
-    
-  <script>
-  console.log("==================")
-  console.log("JS TEST")
-  var bnoValue = '<c:out value = "${board.bno}"/>';
-  
-  replyService.getList({bno:bnoValue, page:1}, function(list){
-	  
-	  for(var i = 0, len = list.length||0; i < len; i++){
-		  console.log(list[i]);
-	  }
-  });
-  
-  replyService.get(6, function(data){
-	  console.log(data);
-  });
-  </script>  
-    
-<!-- <script type="text/javascript">
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<script type="text/javascript">
 
 $(document).ready(function () {
 	var operForm = $("#operForm");
@@ -107,109 +100,21 @@ $(document).ready(function () {
 		var operation = $(this).data("oper");
 		console.log(operation);
 		
-		if(operation === "modify1"){
+		if(operation === "modify"){
 			operForm.attr("action", "/board/modify1");
-		}else if(operation === "community3"){
-			operForm.find("#bno").remove();
-			operForm.attr("action", "/board/community3");
 		}else if(operation === "remove"){
-			operForm.attr("action", "/board/remove3").attr("method", "post");
+			operForm.attr("action", "/board/remove1").attr("method","post");
+		}else if(operation === "community1"){
+			operForm.find("#bno").remove();
+			operForm.attr("action", "/board/community1");
 		}
 		
 		operForm.submit();
 	});
 	
-
-	//댓글
-	$(document).ready(function(){
-	   
-	   console.log("==================")
-	   console.log("JS TEST")
-	   var bnoValue = '<c:out value = "${board.bno}"/>';
-	   
-	   var replyUL = $(".chat");
-	   showList(1);
-	   
-	   function showList(page){
-	      
-	     console.log("show list " + page);
-	     
-	     replyService.getList({bno:bnoValue, page:page||1},
-	      function(replyCnt, list){
-	        
-	        console.log("replyCnt: "+ replyCnt );
-	        console.log("list: " + list);
-	        console.log(list);
-	        
-	        if(page==-1){
-	           pageNum = Math.ceil(replyCnt/10.0);
-	           showList(pageNum);
-	           return;
-	        }
-	        
-	        
-	         var str = "";
-	         if (list==null|| list.length==0){
-	            replyUL.html("");
-	            return;
-	         }
-	        for(var i = 0, len=list.length||0 ; i<len ; i++){
-	         str += "<div class='chat-content' data-rno='12'>";
-	         str += "<strong>" + list[i].userid + "</strong>";
-	         str += "<small>" + replyService.displayTime(list[i].regdate) + "</small>"
-			 str += "<p>"+list[i].reply+"</p>" 
-	        }
-	        replyUL.html(str);
-	        
-	        showReplyPage(replyCnt);
-	     });// end function
-	   }// end show list
-	   
-	   var pageNum = 1;
-	   var replyPageFooter = $(".panel-footer");
-	   
-	   function showReplyPage(replyCnt){
-	      var endNum = Math.ceil(pageNum / 10.0) *10;
-	      var startNum = endNum - 9;
-	      
-	      var prev = startNum != 1;
-	      var next = false;
-	      
-	      if(endNum * 10 >= replyCnt){
-	         endNum = Math.ceil(replyCnt / 10.0)
-	      }
-	      
-	      if(endNum * 10 < replyCnt){
-	         next = true;
-	      }
-	      
-	      var str ="<ul class='pagination pull-right'>";
-	      if(prev){
-	         str += "<li class='page-item'><a class='page-link' href='"
-	         +(startNum - 1)+"'>Previous</a></li>";
-	      }
-	      
-	      for(var i=startNum ; i<=endNum ; i++){
-	         var active = pageNum == i?"active":"";
-	         str += "<li class='page-item'" + active+ "'><a class='page-link' href='"
-	         +i+"'>" + i + "</a></li>";
-	      }
-	      
-	      str += "</ul></div>";
-	      console.log(str);
-	      replyPageFooter.html(str);
-	   }
-	   
-	   replyPageFooter.on("click", "li a", function(e){
-	      e.preventDefault();
-	      
-	      console.log("page click~");
-	      
-	      var targetPageNum = $(this).attr("href");
-	      console.log("targetPageNum: " + targetPageNum);
-	      pageNum = targetPageNum;
-	      showList(pageNum);
-	      
-	   });
+	$("#next").on("click", function (e) {
+		e.preventDefault();
+		location.href="/board/reg-detail1?bno='${board.bno+1}'.jsp";
+	});
 });
-</script>  -->
+</script>

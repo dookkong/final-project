@@ -18,41 +18,38 @@
                     	<form role="form" action="/board/modify2" method="post">
                           <div class="form-group">
                           	  <input type='hidden' name='bno' value='<c:out value="${board.bno }"/>'>
-                          	  
                               <label>제목</label>
                               <input class="form-control" name="title" 
                               value='<c:out value="${board.title }"/>' >
                           </div>
                           
                           <div class="form-group">
-                          <label>작성자</label>
+                         	  <label>작성자</label>
                               <input class="form-control" name="userid" 
                               value='<c:out value="${board.userid }"/>' readonly="readonly">
                           </div>
                           
                           <div class="form-group">
-                          <label>수정일자</label>
-                              <input class="form-control" name="updatedate" 
-                              value='<fmt:formatDate pattern="yyyy-MM-dd" value="${board.updatedate }"/>' readonly="readonly">
-                          </div>
-                          
-                          <div class="form-group">
                               <label>내용</label>
-                              <textarea class="form-control" rows="10" cols="10000" name="content">${board.content }</textarea>
+                              <textarea class="form-control" rows="10" 
+                              cols="10000" name="content">${board.content }</textarea>
                           </div>
                           
                           <%-- data-xxx 데이터 속성 --%>
                           <%-- 특정한 데이터를 DOM 요소에 저장해두기 위함 --%>
                           <%-- data-form='' data-value='' 등과 같이 임의로 속성을 만들어 사용할 수 있으며 한 input 태그에 여러개 사용 가능하다. --%>
-                          <button type="submit" data-oper="modify3" class="btn btn-default">수정</button>
-                          <button type="submit" data-oper="community3" class="btn btn-info">목록</button>
+                          <button type="submit" data-oper="modify2" class="btn btn-default">수정</button>
+                          <button type="submit" data-oper="community2" class="btn btn-info">목록</button>
                     	</form>
              </div>
 </div>                  
-<!-- /.row -->
+
 <%@include file="../includes/footer.jsp" %>
 
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
 <script type="text/javascript">
+
 $(document).ready(function () {
 	var formObj = $("form");
 	
@@ -63,15 +60,11 @@ $(document).ready(function () {
 		var operation = $(this).data("oper");
 		console.log(operation);
 		
-		if(operation === "community3"){
-			formObj.attr("action", "/board/community3")
+		if(operation === "community2"){
+			formObj.attr("action", "/board/community2")
 				   .attr("method", "get");
-		}
-		
+		}		
 		formObj.submit();
 	});
-	
-	
-
 });
 </script>

@@ -84,6 +84,7 @@
           <label for="news">Email address</label>
           <input id="news" type="email" placeholder="Email address" required>
           <input class="btnn" type="submit" name="submit" value="구독하기"/>
+        </div>
       </form>
     </div>
   </div>

@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%@ include file="../includes/header.jsp" %> 
     
 <link href="/resources/dist/css/headers.css" rel="stylesheet">
@@ -18,7 +19,7 @@
   <br>
   <br>
   <div class="btn-reg-detail">
-<button type="button" style="border-radius: 5px;">목록</button>
+<button type="button" data-oper="community5" style="border-radius: 5px;">목록</button>
 <button type="button" style="border-radius: 5px;">다음글></button>
   </div>
   <br>
@@ -27,31 +28,41 @@
       <div class="div2">
         <h2><b><c:out value="${board.title }"/></b></h2>
         <h5><b><c:out value="${board.userid }"/></b></h5>
+        
         <div class="btn-reg-detail">
-          <button type="button" style="border-radius: 5px;" onclick="location.href = './modify5.html'">수정</button>
-          <button type="button" style="border-radius: 5px;">삭제</button>
-            </div>
-        <h6><c:out value="${board.regdate }"/></h6>
+          <button type="button" data-oper="modify" style="border-radius: 5px;">수정</button>
+          <button type="button" data-oper="remove" style="border-radius: 5px;">삭제</button>
+        </div>
+            
+        <h6><fmt:formatDate pattern="yyyy-MM-dd" value="${board.updatedate }"/> 조회수 
+        	<c:out value="${board.views }"/></h6>
             <hr>
             <br>
-            <div class="btn-reg-detail-content">
+            
+        <div class="btn-reg-detail-content">
              <c:out value="${board.content }"/>
-            </div>
+        </div>
+            
+        <form id="operForm" action="/board/modify5" method="get">
+           <input type='hidden' id="bno" name="bno" value='${board.bno }'>
+           <input type='hidden' name="pageNum" value='${cri.pageNum }'>
+           <input type='hidden' name="amount" value='${cri.amount }'>                                
+        </form>
       </div>
     </div>
     
     <hr>
     
-   <div style="position: relative; left: 60px;">
+    <div style="position: relative; left: 60px;">
     <h4>댓글</h4>
-    <div class="chat">
-      <div class="chat-content" data-rno='12'>
-          <strong>댓글 작성자</strong>
-          <small >2022-08-01</small>
-        <p>나는 여행을 간다~</p>
-      </div>
-      
-      <div>
+		<div class="chat">
+			<div class="chat-content" data-rno='12'>
+          	<strong><c:out value="${Reply.userid }"></c:out></strong>
+          	<small >2022-08-01</small>
+          	<p><c:out value="${reply.reply }"></c:out></p>
+      	</div>
+
+     <div>
       	<button onclick="" style="border: 0px; background: none; 
       			position: relative; left: 1050px; bottom: 100px; font-size: 15px;">
       	수정하기</button>
@@ -60,8 +71,10 @@
       	삭제하기</button>
       </div>
     </div>
+    
     <br>
     <br>
+    
     <div class="chat-reg">
       <textarea style="width: 1200px;   height: 100px;">댓글을 입력하시오
       </textarea>
@@ -70,7 +83,9 @@
       </div>
     </div>
 </div>
-    
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
 <script type="text/javascript">
 
 $(document).ready(function () {
@@ -86,12 +101,12 @@ $(document).ready(function () {
 		console.log(operation);
 		
 		if(operation === "modify"){
-			operForm.attr("action", "/board/modify");
-		}else if(operation === "community3"){
-			operForm.find("#bno").remove();
-			operForm.attr("action", "/board/community3");
+			operForm.attr("action", "/board/modify1");
 		}else if(operation === "remove"){
-			operForm.attr("action", "/board/remove3").attr("method", "post");
+			operForm.attr("action", "/board/remove5").attr("method","post");
+		}else if(operation === "community1"){
+			operForm.find("#bno").remove();
+			operForm.attr("action", "/board/community1");
 		}
 		
 		operForm.submit();
@@ -99,8 +114,7 @@ $(document).ready(function () {
 	
 	$("#next").on("click", function (e) {
 		e.preventDefault();
-		location.href="/board/reg-detail?bno='${board.bno+1}'.jsp";
+		location.href="/board/reg-detail5?bno='${board.bno+1}'.jsp";
 	});
 });
 </script>
-    

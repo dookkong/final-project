@@ -7,7 +7,6 @@
 
 <link href="/resources/dist/css/headers.css" rel="stylesheet">
 <link href="/resources/dist/css/community.css" rel="stylesheet">
-<link href="/resources/dist/css/bootstrap.css" rel="stylesheet">
 
   <nav class="container">
 <img src="/resources/image/re.png" id="re">
@@ -19,7 +18,7 @@
 
 <section class="container" style="height: 950px;">
 	<div  style="text-align: center; position: relative; right: 230px;" id="list">
-    	<button type="button" class="btn btn-xs pull-right" onclick="location.href = './reg.html'"
+    	<button id="regBtn" type="button" class="btn btn-xs pull-right"
               	style="border-radius: 5px; background: #22dd9b; float: left; font-size: 13px; width: 90px;">
         	<img alt="pencle" src="/resources/image/pencle.png" width="18px">
         	글쓰기
@@ -40,7 +39,7 @@
                     </thead>        
                     <tbody>
                       <c:forEach items="${Passlatter}" var="board">
-                        <tr class="odd gradeX">
+                         <tr class="odd gradeX">
                             <td style="width: 80px;"><c:out value="${board.bno}"/></td>
                             <td><a class="move" style="text-decoration: none; color: black;" href='/board/reg-detail3?bno=<c:out value="${board.bno }"/>'>
                             	<c:out value="${board.title}"/>
@@ -76,16 +75,16 @@
                     <input type="text" name="keyword" >
                     <input type="hidden" name="pageNum" >
                     <input type="hidden" name="amount">
-                    <button id="search">Search</button>
+                    <button class="btn btn-default" id="search">Search</button>
                   </form>
                   </div>
                </div>
                
                <div>
-             <ul class="pagination"
-              style="list-style-type: none; position: relative; left: 350px; 
-              display: flex; flex-direction: row; justify-content: space-around;
-              width: 320px; color: black;">
+              <ul class="pagination"
+               style="list-style-type: none; position: relative; left: 380px; 
+               display: flex; flex-direction: row; justify-content: space-around;
+               width: 120px; color: black;">
                  
                  	<%-- prev가 true일 때 보이게 하기 --%>
                  	<c:if test="${pageMaker.prev}">
@@ -93,8 +92,8 @@
                  	</c:if>
                  	
                  	<%-- a href=""에 페이지 값을 담은 것을 actionForm hidden의 value에 넣어서 /board/community3로 이동한다. --%>
-                 	<c:forEach var="page" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-                 		<li class="paginate_button ${pageMaker.cri.pageNum == page? 'active':''}"><a href="${page }">${page }</a></li>
+                 	<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+                 		<li class="paginate_button ${pageMaker.cri.pageNum == num ? 'active':''}"><a href="community3?pageNum=${num }">${num }</a></li>
                  	</c:forEach>
                  	
                  	<%-- next가 true일 때 보이게 하기 --%>
@@ -103,8 +102,9 @@
 					</c:if>
                  </ul>
             </div>
-              </div>
-            <form id="actionForm" action="/board/community1" method='get'>
+          </div>
+              
+            <form id="actionForm" action="/board/community3" method='get'>
                <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
                <input type="hidden" name="amount" value="${pageMaker.cri.amount }">
                <input type="hidden" name="type">
@@ -112,65 +112,28 @@
 </div>
 </section>
   
-<%@include file="../includes/footer.jsp" %>
+<%@include file="/WEB-INF/views/includes/footer.jsp" %>
 
 <script type="text/javascript">
-               $(document).ready(function () {
-				  var result = '<c:out value="${result}"/>';
-				  
-				  checkModal(result);
-				  history.replaceState({},null,null);
-				  
-				  function checkModal(result) {
-					if(result === '' || history.state){
-						return;
-					}
-					
-					if(parseInt(result) > 0){
-						$(".modal-body").html("게시글 "+parseInt(result)+" 번이 등록 되었습니다.");
-					}
-					$("#myModal").modal("show");
-				}
-				  
-				  $("#regBtn").on("click", function () {
-					self.location = "/board/reg-detail";
-				});
-				  
-				  var actionForm = $("#actionForm");
-				  
-				  $(".paginate_button a").on("click", function (e) {
-					e.preventDefault();
-					console.log('click....');
-					actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-					actionForm.submit();
-				});
-				  
-				  $(".move").on("click", function (e) {
-					e.preventDefault(); //기본동작을 제거
-					actionForm.append("<input type='hidden' name='bno' value='"+
-							$(this).attr("href")+"'>");
-							//move
-					actionForm.attr("action","/board/get");
-					actionForm.submit();
-				});
-				  
-				  var searchForm = $("#searchForm");
-				  $("#searchForm button").on("click", function (e) {
-					if(!searchForm.find("option:selected").val()){
-						alert("검색 종류를 선택하세요.");
-						
-						return false;
-					}
-					
-					if(!searchForm.find("input[name='keyword']").val()){
-						alert("키워드를 입력 하세요.");
-						
-						return false;
-					}
-					
-					searchForm.find("input[name='pageNum']").val("1");
-					e.perventDefault();
-					searchForm.submit();
-				});
-			});
-            </script>
+$(document).ready(function () {
+	var result = '<c:out value="${result}"/>';
+	  
+	  checkModal(result);
+	  history.replaceState({},null,null);
+	  
+	  function checkModal(result) {
+		if(result === ''|| history.state){
+			return;
+		}
+		
+		if(parseInt(result) > 0){
+			$(".modal-body").html("게시글이 등록 되었습니다.");
+		}
+		$("#myModal").modal("show");
+	}
+	
+	$("#regBtn").on("click", function () {
+		self.location = "/board/reg3";
+	});
+});
+</script>

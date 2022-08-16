@@ -15,30 +15,24 @@
 
 <div class="container" style="height: 1000px; margin-top: 100px;">
 			<div>
-                    	<form role="form" action="/board/modify3" method="post">
+                    	<form role="form" action="/board/modify2" method="post">
                           <div class="form-group">
                           	  <input type='hidden' name='bno' value='<c:out value="${board.bno }"/>'>
-                          	  
                               <label>제목</label>
                               <input class="form-control" name="title" 
                               value='<c:out value="${board.title }"/>' >
                           </div>
                           
                           <div class="form-group">
-                          <label>작성자</label>
+                              <label>작성자</label>
                               <input class="form-control" name="userid" 
                               value='<c:out value="${board.userid }"/>' readonly="readonly">
                           </div>
                           
                           <div class="form-group">
-                          <label>수정일자</label>
-                              <input class="form-control" name="updatedate" 
-                              value='<fmt:formatDate pattern="yyyy-MM-dd" value="${board.updatedate }"/>' readonly="readonly">
-                          </div>
-                          
-                          <div class="form-group">
                               <label>내용</label>
-                              <textarea class="form-control" rows="10" cols="10000" name="content">${board.content }</textarea>
+                              <textarea class="form-control" rows="10" 
+                              cols="10000" name="content">${board.content }</textarea>
                           </div>
                           
                           <%-- data-xxx 데이터 속성 --%>
@@ -49,10 +43,13 @@
                     	</form>
              </div>
 </div>                  
-<!-- /.row -->
+
 <%@include file="../includes/footer.jsp" %>
 
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
 <script type="text/javascript">
+
 $(document).ready(function () {
 	var formObj = $("form");
 	
@@ -67,11 +64,7 @@ $(document).ready(function () {
 			formObj.attr("action", "/board/community3")
 				   .attr("method", "get");
 		}
-		
 		formObj.submit();
 	});
-	
-	
-
 });
 </script>

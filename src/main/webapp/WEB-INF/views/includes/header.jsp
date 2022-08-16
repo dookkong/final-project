@@ -9,6 +9,10 @@
   <title>Document</title>
 
 <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/headers/">
+<link href="/resources/dist/css/bootstrap.css" rel="stylesheet">  
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+ 
+<link rel="icon" type="img/png" sizes="16x16" href="/resources/image/favicon-16x16.png">
 
 </head>
 <body>
@@ -16,9 +20,11 @@
 <main>
 
 <div class="container">
-  <a href="./index.html" style="text-decoration: none; color: black;">
-    <h1 class="visually-hidden ">DEV'ILs </h1>
-  </a>
+   <h1>
+   	<a href="./index.html" style="text-decoration: none; color: black;">
+   DEV'ILs 
+  	</a>
+  </h1>
 </div>
 <hr>
 

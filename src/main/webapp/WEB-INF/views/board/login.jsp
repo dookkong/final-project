@@ -4,18 +4,16 @@
 <%@ include file="../includes/header.jsp" %> 
     
 <link href="/resources/dist/css/headers.css" rel="stylesheet">
-<link href="/resources/dist/css/login.css" rel="stylesheet">
-<link href="/resources/dist/css/bootstrap.css" rel="stylesheet">    
+<link href="/resources/dist/css/login.css" rel="stylesheet"> 
     
 <section class="sec">
-    <br>
-    <br>
-      <div>
+<br>
+<br>
+    <div>
         <h3 style="text-align: center;"><b>로그인</b></h3>
     </div>
-    <hr>
-    <br>
-
+<hr>
+<br>
       <div class="log">
         <img src="/resources/image/pngwing.com.jpg" style="width: 60px;" class="img-id">
         <input type="text" name="id"
@@ -35,9 +33,9 @@
           <img src="/resources/image/sign.png" style="width: 15px;">
           <a href="./sign.html" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 13px;">회원가입</a>
         </div>
+        
         <div id="loginbox">
           <button type="submit" value="로그인" name="login" id="login">로그인</button>
-
         </div>
   </section>
 
