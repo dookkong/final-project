@@ -7,13 +7,13 @@ title VARCHAR2(200) not null,
 content VARCHAR2(2000) not null,
 userid VARCHAR2(50) not null,
 regdate DATE DEFAULT sysdate,
-updatedate DATE DEFAULT sysdate,
 views NUMBER(10,0) DEFAULT 0,
 likes NUMBER(10,0) DEFAULT 0,
 CONSTRAINT CompanyVal_bno PRIMARY KEY (bno),
 CONSTRAINT CompanyVal_userid foreign key(userid) references Member_TB(userid) ON DELETE CASCADE
 );
 
+ALTER table CompanyVal_TB drop column updatedate;
 ALTER TABLE CompanyVal_TB add replyCnt NUMBER(10,0) DEFAULT 0;
 
 select * from CompanyVal_TB; 
@@ -29,13 +29,13 @@ title VARCHAR2(200) not null,
 content VARCHAR2(2000) not null,
 userid VARCHAR2(50) not null,
 regdate DATE DEFAULT sysdate,
-updatedate DATE DEFAULT sysdate,
 views NUMBER(10,0) DEFAULT 0,
 likes NUMBER(10,0) DEFAULT 0,
 CONSTRAINT InterviewAns_bno PRIMARY KEY (bno),
 CONSTRAINT InterviewAns_userid foreign key(userid) references Member_TB(userid) ON DELETE CASCADE
 );
  
+ ALTER table InterviewAns_TB drop column updatedate;
  ALTER TABLE InterviewAns_TB add replyCnt NUMBER(10,0) DEFAULT 0;
  
  select * from InterViewAns_TB;
@@ -49,13 +49,13 @@ title VARCHAR2(200) not null,
 content VARCHAR2(2000) not null,
 userid VARCHAR2(50) not null,
 regdate DATE DEFAULT sysdate,
-updatedate DATE DEFAULT sysdate,
 views NUMBER(10,0) DEFAULT 0,
 likes NUMBER(10,0) DEFAULT 0,
 CONSTRAINT Passlatter_bno PRIMARY KEY (bno),
 CONSTRAINT Passlatter_userid foreign key(userid) references Member_TB(userid) ON DELETE CASCADE
 );
 
+ ALTER table Passlatter_TB drop column updatedate;
  ALTER TABLE Passlatter_TB add replyCnt NUMBER(10,0) DEFAULT 0;
  
  select * from Passlatter_TB;
@@ -71,7 +71,6 @@ title VARCHAR2(200) not null,
 content VARCHAR2(2000) not null,
 userid VARCHAR2(50) not null,
 regdate DATE DEFAULT sysdate,
-updatedate DATE DEFAULT sysdate,
 views NUMBER(10,0) DEFAULT 0,
 likes NUMBER(10,0) DEFAULT 0,
 category VARCHAR2(50) not null,
@@ -79,6 +78,7 @@ CONSTRAINT WorryQnA_bno PRIMARY KEY (bno),
 CONSTRAINT WorryQnA_userid foreign key(userid) references Member_TB(userid) ON DELETE CASCADE
 );
 
+ALTER table WorryQnA_TB drop column updatedate;
  ALTER TABLE WorryQnA_TB add replyCnt NUMBER(10,0) DEFAULT 0;
  select * from WorryQnA_TB;
  drop TABLE WorryQnA_TB;
@@ -92,13 +92,13 @@ title VARCHAR2(200) not null,
 content VARCHAR2(2000) not null,
 userid VARCHAR2(50) not null,
 regdate DATE DEFAULT sysdate,
-updatedate DATE DEFAULT sysdate,
 views NUMBER(10,0) DEFAULT 0,
 likes NUMBER(10,0) DEFAULT 0,
 CONSTRAINT PassSelfIntroduct_bno PRIMARY KEY (bno),
 CONSTRAINT PassSelfIntroduct_userid foreign key(userid) references Member_TB(userid) ON DELETE CASCADE
 );
 
+ALTER table PassSelfIntroduct_TB drop column updatedate;
  ALTER TABLE PassSelfIntroduct_TB add replyCnt NUMBER(10,0) DEFAULT 0;
  select * from PassSelfIntroduct_TB;
  drop TABLE PassSelfIntroduct_TB;
@@ -113,15 +113,17 @@ title VARCHAR2(200) not null,
 content VARCHAR2(2000) not null,
 userid VARCHAR2(50) not null,
 regdate DATE DEFAULT sysdate,
-updatedate DATE DEFAULT sysdate,
 category VARCHAR2(50) not null,
 CONSTRAINT Ask_bno PRIMARY KEY (bno),
 CONSTRAINT Ask_userid foreign key(userid) references Member_TB(userid) ON DELETE CASCADE
 );
 
+ALTER table  Ask_TB drop column updatedate;
 ALTER TABLE Ask_TB add replyCnt NUMBER(10,0) DEFAULT 0;
 select * from Ask_TB;
 drop TABLE Ask_TB;
+
+select * from Ask_TB where userid='user2' order by regdate desc ;
 
  -- 7. 회원 ======================================================================================
  
@@ -170,7 +172,6 @@ CREATE TABLE CompanyVal_reply_TB(
  reply VARCHAR2(1000) not null,
  userid VARCHAR2(50) not null,
  regdate DATE DEFAULT sysdate,
- updatedate DATE DEFAULT sysdate,
  CONSTRAINT CompanyVal_reply_rno PRIMARY KEY (rno),
  CONSTRAINT CompanyVal_reply_bno foreign key(bno) references CompanyVal_TB(bno)ON DELETE CASCADE,
  CONSTRAINT CompanyVal_reply_userid foreign key(userid) references Member_TB(userid) ON DELETE CASCADE
@@ -189,7 +190,6 @@ CREATE TABLE InterviewAns_reply_TB(
  reply VARCHAR2(1000) not null,
  userid VARCHAR2(50) not null,
  regdate DATE DEFAULT sysdate,
- updatedate DATE DEFAULT sysdate,
  CONSTRAINT InterviewAns_reply_rno PRIMARY KEY (rno),
  CONSTRAINT InterviewAns_reply_bno foreign key(bno) references InterviewAns_TB(bno)ON DELETE CASCADE,
  CONSTRAINT InterviewAns_reply_userid foreign key(userid) references Member_TB(userid) ON DELETE CASCADE
@@ -207,7 +207,6 @@ CREATE TABLE Passlatter_reply_TB(
  reply VARCHAR2(1000) not null,
  userid VARCHAR2(50) not null,
  regdate DATE DEFAULT sysdate,
- updatedate DA;TE DEFAULT sysdate,
  CONSTRAINT Passlatter_reply_rno PRIMARY KEY (rno),
  CONSTRAINT Passlatter_reply_bno foreign key(bno) references Passlatter_TB(bno)ON DELETE CASCADE,
  CONSTRAINT Passlatter_reply_userid foreign key(userid) references Member_TB(userid) ON DELETE CASCADE
@@ -216,7 +215,7 @@ CREATE TABLE Passlatter_reply_TB(
  select * from Passlatter_reply_TB; 
  drop TABLE Passlatter_reply_TB;
  
- -- 11. 고민Q&A 댓글DB ======================================================================================
+ -- 12. 고민Q&A 댓글DB ======================================================================================
  CREATE SEQUENCE seq_WorryQnA_reply;
  
 CREATE TABLE WorryQnA_reply_TB(
@@ -243,7 +242,6 @@ CREATE TABLE PassSelfIntroduct_reply_TB(
  reply VARCHAR2(1000) not null,
  userid VARCHAR2(50) not null,
  regdate DATE DEFAULT sysdate,
- updatedate DATE DEFAULT sysdate,
  CONSTRAINT PassSelfIntroduct_reply_rno PRIMARY KEY (rno),
  CONSTRAINT PassSelfIntroduct_reply_bno foreign key(bno) references PassSelfIntroduct_TB(bno) ON DELETE CASCADE, 
  CONSTRAINT PassSelfIntroduct_reply_userid foreign key(userid) references Member_TB(userid) ON DELETE CASCADE
@@ -262,7 +260,6 @@ CREATE TABLE Ask_reply_TB(
  reply VARCHAR2(1000) not null,
  userid VARCHAR2(50) not null,
  regdate DATE DEFAULT sysdate,
- updatedate DATE DEFAULT sysdate,
  CONSTRAINT Ask_reply_rno PRIMARY KEY (rno),
  CONSTRAINT Ask_reply_bno foreign key(bno) references Ask_TB(bno) ON DELETE CASCADE,
  CONSTRAINT Ask_reply_userid foreign key(userid) references Member_TB(userid) ON DELETE CASCADE
@@ -273,25 +270,3 @@ drop TABLE Ask_reply_TB;
  
  
  --======================================================================================
- 
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
