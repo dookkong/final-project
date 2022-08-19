@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <%@ include file="../includes/header.jsp" %> 
     
 <link href="/resources/dist/css/headers.css" rel="stylesheet">
@@ -23,7 +25,7 @@
   <br>
     <div class="div">
       <div class="div2">
-        <h2><b>안녕하세요. 이 부분은 글제목입니다</b></h2>
+        <h2><b><c:out value="${board.title }"/></b></h2>
         <h5><b>작성자 이름</b></h5>
         <div class="btn-reg-detail">
           <button type="button" style="border-radius: 5px;">수정</button>

@@ -24,16 +24,17 @@
         <p><b>비밀번호 확인</b></p>
         <p><b>전화번호</b></p>
     </div>
+ <form action="/board/sign" method="post">    
     <div class="input">
-        <input type="text" name="name" placeholder="이름을 입력해주세요">
+        <input type="text" name="username" placeholder="이름을 입력해주세요">
         <br>
-        <input type="text" name="id" placeholder="아이디를 입력해주세요">
+        <input type="text" name="userid" placeholder="아이디를 입력해주세요">
         <br>
-        <input type="password" name="pass" placeholder="비밀번호를 입력해주세요">
+        <input type="password" name="userpw" placeholder="비밀번호를 입력해주세요">
         <br>
         <input type="password" name="pass-check" placeholder="비밀번호를 한번 더 입력해주세요">
         <br>
-        <input type="text" name="phone" placeholder="전화번호를 입력해주세요">
+        <input type="text" name="userphone" placeholder="전화번호를 입력해주세요">
     </div>
 
     <div class="radio">
@@ -44,8 +45,10 @@
 
     <div class="sub">
       <input type="submit" name="submit" value="회원가입">
-      <input type="reset" name="submit" value="다시입력">
+      <input type="reset" name="reset" value="다시입력">
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     </div>
+</form> 
   </section>
 
   
@@ -83,6 +86,7 @@
           <label for="news">Email address</label>
           <input id="news" type="email" placeholder="Email address" required>
           <input class="btnn" type="submit" name="submit" value="구독하기"/>
+        </div>
       </form>
     </div>
   </div>
