@@ -4,31 +4,212 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.keduit.mapper.BoardMapper">
-  
-  <select id="getlist" resultType="com.keduit.domain.BoardVO">
-  	<!-- <![CDATA[
-  	 where bno > 0 
-  	]]> -->
-  	select * from t_board order by bno desc
-  </select>
-  
+   
+  <sql id="criteria">
+     <trim prefix="(" suffix=") AND " prefixOverrides="OR">
+       <foreach item='type' collection='typeArr'>
+         <trim prefix="OR">
+           <choose>
+              <when test="type == 'T'.toString()">
+                 title like '%'||#{keyword}||'%'
+              </when>
+              <when test="type == 'C'.toString()">
+                 content like '%'||#{keyword}||'%'
+              </when>
+              <when test="type == 'W'.toString()">
+                 userid like '%'||#{keyword}||'%'
+              </when>
+            </choose>
+         </trim>
+       </foreach>
+     </trim>
+   </sql>
+   
+   
+  				<!-- ==========페이징처리 부분========== -->
+  <select id="CompanyValPaging" resultType="com.keduit.domain.BoardVO">
+     
+     select bno, title, content, userid, regdate, updatedate, views, likes
+         from (
+             select /*+INDEX_DESC(CompanyVal_TB CompanyVal_bno) */ 
+               rownum rn, bno, title, content, userid, regdate, updatedate, views, likes
+               from CompanyVal_TB where 
+                <include refid="criteria"></include>                    
+        <![CDATA[rownum <= #{pageNum} * #{amount}) where rn > (#{pageNum} - 1) * #{amount}]]>  
+   </select>
+   
+  <select id="InterviewAnsPaging" resultType="com.keduit.domain.BoardVO">
+     
+     select bno, title, content, userid, regdate, updatedate, views, likes
+         from (
+             select /*+INDEX_DESC(InterviewAns_TB InterviewAns_bno) */ 
+               rownum rn, bno, title, content, userid, regdate, updatedate, views, likes
+               from InterviewAns_TB where 
+                <include refid="criteria"></include>                    
+        <![CDATA[rownum <= #{pageNum} * #{amount}) where rn > (#{pageNum} - 1) * #{amount}]]>  
+   </select>
+   
+  <select id="PasslatterPaging" resultType="com.keduit.domain.BoardVO">
+     
+     select bno, title, content, userid, regdate, updatedate, views, likes
+         from (
+             select /*+INDEX_DESC(Passlatter_TB Passlatter_bno) */ 
+               rownum rn, bno, title, content, userid, regdate, updatedate, views, likes
+               from Passlatter_TB where 
+                <include refid="criteria"></include>                    
+        <![CDATA[rownum <= #{pageNum} * #{amount}) where rn > (#{pageNum} - 1) * #{amount}]]>  
+   </select>
+   
+  <select id="WorryQnAPaging" resultType="com.keduit.domain.BoardVO">
+     
+     select bno, title, content, userid, regdate, updatedate, views, likes,category
+         from (
+             select /*+INDEX_DESC(WorryQnA_TB WorryQnA_bno) */ 
+               rownum rn, bno, title, content, userid, regdate, updatedate, views, likes,category
+               from WorryQnA_TB where 
+                <include refid="criteria"></include>                    
+        <![CDATA[rownum <= #{pageNum} * #{amount}) where rn > (#{pageNum} - 1) * #{amount}]]>  
+   </select>
+   
+  <select id="PassSelfIntroductPaging" resultType="com.keduit.domain.BoardVO">
+     
+     select bno, title, content, userid, regdate, updatedate, views, likes
+         from (
+             select /*+INDEX_DESC(PassSelfIntroduct_TB PassSelfIntroduct_bno) */ 
+               rownum rn, bno, title, content, userid, regdate, updatedate, views, likes
+               from PassSelfIntroduct_TB where 
+                <include refid="criteria"></include>                    
+        <![CDATA[rownum <= #{pageNum} * #{amount}) where rn > (#{pageNum} - 1) * #{amount}]]>  
+   </select>
+   
+   
+  				<!-- ==========등록 부분========== -->
   <insert id="insert">
-  	insert into team_board(bno, title, content, writer) 
-	values(seq_team_board.nextval, #{title}, #{content}, #{writer})
+  	insert into ${select}_TB(bno, title, content, userid) 
+	values(seq_${select}.nextval, #{title}, #{content}, #{userid})
   </insert>
   
-  <select id="read" resultType="com.keduit.domain.BoardVO">
-  	select * from t_board where bno = #{bno}
+  <insert id="WorryQnAinsert">
+  	insert into WorryQnA_TB(bno, title, content, userid, category) 
+	values(seq_WorryQnA.nextval, #{title}, #{content}, #{userid}, #{category})
+  </insert>
+  
+  
+ 				<!--  ==========read 부분========== -->
+  <select id="CompanyValread" resultType="com.keduit.domain.BoardVO">
+  	select * from CompanyVal_TB where bno = #{bno}
+  </select>
+  <select id="InterviewAnsread" resultType="com.keduit.domain.BoardVO">
+  	select * from InterviewAns_TB where bno = #{bno}
+  </select>
+  <select id="Passlatterread" resultType="com.keduit.domain.BoardVO">
+  	select * from Passlatter_TB where bno = #{bno}
+  </select>
+  <select id="WorryQnAread" resultType="com.keduit.domain.BoardVO">
+  	select * from WorryQnA_TB where bno = #{bno}
+  </select>
+  <select id="PassSelfIntroductread" resultType="com.keduit.domain.BoardVO">
+  	select * from PassSelfIntroduct_TB where bno = #{bno}
   </select>
   
-  <delete id="delete">
-  	delete from team_board where bno = #{bno}
-  </delete>
   
-  <update id="update">
-  	update team_board
-  	set title = #{title}, content = #{content}, writer = #{writer}, updatedate = sysdate
+ 				<!-- ==========update 부분========== -->
+  <update id="CompanyValupdate">
+  	update CompanyVal_TB
+  	set title = #{title}, content = #{content}, userid = #{userid}, updatedate = sysdate
+  	where bno = #{bno}
+  </update>
+  <update id="InterviewAnsupdate">
+  	update InterviewAns_TB
+  	set title = #{title}, content = #{content}, userid = #{userid}, updatedate = sysdate
+  	where bno = #{bno}
+  </update>
+  <update id="Passlatterupdate">
+  	update Passlatter_TB
+  	set title = #{title}, content = #{content}, userid = #{userid}, updatedate = sysdate
+  	where bno = #{bno}
+  </update>
+  <update id="WorryQnAupdate">
+  	update WorryQnA_TB
+  	set title = #{title}, content = #{content}, userid = #{userid}, updatedate = sysdate
+  	where bno = #{bno}
+  </update>
+  <update id="PassSelfIntroductupdate">
+  	update PassSelfIntroduct_TB
+  	set title = #{title}, content = #{content}, userid = #{userid}, updatedate = sysdate
   	where bno = #{bno}
   </update>
   
+  
+				<!-- ==========delete 부분========== -->
+  <delete id="CompanyValdelete">
+  	delete from CompanyVal_TB where bno = #{bno}
+  </delete>
+  <delete id="InterviewAnsdelete">
+  	delete from InterviewAns_TB where bno = #{bno}
+  </delete>
+  <delete id="Passlatterdelete">
+  	delete from Passlatter_TB where bno = #{bno}
+  </delete>
+  <delete id="WorryQnAdelete">
+  	delete from WorryQnA_TB where bno = #{bno}
+  </delete>
+  <delete id="PassSelfIntroductdelete">
+  	delete from PassSelfIntroduct_TB where bno = #{bno}
+  </delete>
+  
+  
+				<!-- ==========페이지 카운트 부분========== -->
+  <select id="CompanyValTotalCount" resultType="int">
+      select count(*) from CompanyVal_TB
+  </select>
+   
+  <select id="InterviewAnsTotalCount" resultType="int">
+      select count(*) from InterviewAns_TB
+  </select>
+   
+  <select id="PasslatterTotalCount" resultType="int">
+      select count(*) from Passlatter_TB
+  </select>
+   
+  <select id="WorryQnATotalCount" resultType="int">
+      select count(*) from WorryQnA_TB
+  </select>
+   
+  <select id="PassSelfIntroductTotalCount" resultType="int">
+      select count(*) from PassSelfIntroduct_TB
+  </select>
+
+
+				<!-- ==========좋아요 수에 따른 list 부분========== -->	
+  <select id="CompanyValViewsPaging" resultType="com.keduit.domain.BoardVO">
+     
+      select rownum rn, bno, title, userid, regdate, views, likes
+         from (
+             select /*+INDEX_DESC(CompanyVal_TB CompanyVal_bno) */ 
+               bno, title, content, userid, regdate, updatedate, views, likes
+               from CompanyVal_TB order by views desc) WHERE 
+               <![CDATA[rownum <=10]]>  
+  </select>
+  
+   <select id="InterviewAnsViewsPaging" resultType="com.keduit.domain.BoardVO">
+     
+       select rownum rn, bno, title, userid, regdate, views, likes
+         from (
+             select /*+INDEX_DESC(InterviewAns_TB InterviewAns_bno) */ 
+               bno, title, content, userid, regdate, updatedate, views, likes
+               from InterviewAns_TB order by views desc) WHERE 
+               <![CDATA[rownum <=10]]>
+   </select>
+
+
+  <select id="Views" resultType="com.keduit.domain.BoardVO">
+     
+        select rownum rn, bno, title, userid, regdate, views, likes
+         from (
+             select /*+INDEX_DESC(CompanyVal_TB CompanyVal_bno) */ 
+               bno, title, content, userid, regdate, updatedate, views, likes
+               from CompanyVal_TB order by views desc) WHERE 
+               <![CDATA[rownum <=20]]>
+   </select>
   </mapper>
