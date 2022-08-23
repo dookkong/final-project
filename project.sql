@@ -15,6 +15,8 @@ CONSTRAINT CompanyVal_userid foreign key(userid) references Member_TB(userid) ON
 
 ALTER table CompanyVal_TB drop column updatedate;
 ALTER TABLE CompanyVal_TB add replyCnt NUMBER(10,0) DEFAULT 0;
+alter table CompanyVal_TB add tablename varchar(50);
+update CompanyVal_TB set tablename = 'CompanyVal';
 
 select * from CompanyVal_TB; 
 drop TABLE CompanyVal_TB;
@@ -37,6 +39,8 @@ CONSTRAINT InterviewAns_userid foreign key(userid) references Member_TB(userid) 
  
  ALTER table InterviewAns_TB drop column updatedate;
  ALTER TABLE InterviewAns_TB add replyCnt NUMBER(10,0) DEFAULT 0;
+ alter table InterviewAns_TB add tablename varchar(50);
+ update InterviewAns_TB set tablename = 'InterviewAns';
  
  select * from InterViewAns_TB;
  drop TABLE InterviewAns_TB;
@@ -57,6 +61,8 @@ CONSTRAINT Passlatter_userid foreign key(userid) references Member_TB(userid) ON
 
  ALTER table Passlatter_TB drop column updatedate;
  ALTER TABLE Passlatter_TB add replyCnt NUMBER(10,0) DEFAULT 0;
+ alter table Passlatter_TB add tablename varchar(50);
+ update Passlatter_TB set tablename = 'Passlatter';
  
  select * from Passlatter_TB;
 drop TABLE Passlatter_TB;
@@ -78,8 +84,11 @@ CONSTRAINT WorryQnA_bno PRIMARY KEY (bno),
 CONSTRAINT WorryQnA_userid foreign key(userid) references Member_TB(userid) ON DELETE CASCADE
 );
 
-ALTER table WorryQnA_TB drop column updatedate;
+ ALTER table WorryQnA_TB drop column updatedate;
  ALTER TABLE WorryQnA_TB add replyCnt NUMBER(10,0) DEFAULT 0;
+ alter table WorryQnA_TB add tablename varchar(50);
+ update WorryQnA_TB set tablename = 'WorryQnA';
+ 
  select * from WorryQnA_TB;
  drop TABLE WorryQnA_TB;
  
@@ -98,8 +107,11 @@ CONSTRAINT PassSelfIntroduct_bno PRIMARY KEY (bno),
 CONSTRAINT PassSelfIntroduct_userid foreign key(userid) references Member_TB(userid) ON DELETE CASCADE
 );
 
-ALTER table PassSelfIntroduct_TB drop column updatedate;
+ ALTER table PassSelfIntroduct_TB drop column updatedate;
  ALTER TABLE PassSelfIntroduct_TB add replyCnt NUMBER(10,0) DEFAULT 0;
+ alter table PassSelfIntroduct_TB add tablename varchar(50);
+ update PassSelfIntroduct_TB set tablename = 'PassSelfIntroduct';
+ 
  select * from PassSelfIntroduct_TB;
  drop TABLE PassSelfIntroduct_TB;
 
@@ -121,6 +133,7 @@ CONSTRAINT Ask_userid foreign key(userid) references Member_TB(userid) ON DELETE
 ALTER table  Ask_TB drop column updatedate;
 ALTER TABLE Ask_TB add replyCnt NUMBER(10,0) DEFAULT 0;
 select * from Ask_TB;
+select * from Ask_TB where bno = 1;
 drop TABLE Ask_TB;
 
 select * from Ask_TB where userid='user2' order by regdate desc ;
@@ -224,7 +237,6 @@ CREATE TABLE WorryQnA_reply_TB(
  reply VARCHAR2(1000) not null,
  userid VARCHAR2(50) not null,
  regdate DATE DEFAULT sysdate,
- updatedate DATE DEFAULT sysdate,
  CONSTRAINT WorryQnA_reply_rno PRIMARY KEY (rno),
  CONSTRAINT WorryQnA_reply_bno foreign key(bno) references WorryQnA_TB(bno)ON DELETE CASCADE,
  CONSTRAINT WorryQnA_reply_userid foreign key(userid) references Member_TB(userid) ON DELETE CASCADE
@@ -270,3 +282,7 @@ drop TABLE Ask_reply_TB;
  
  
  --======================================================================================
+
+ 
+ 
+ 
